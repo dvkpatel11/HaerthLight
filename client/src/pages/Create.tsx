@@ -162,8 +162,9 @@ export default function Create() {
         generateImage(state.theme).catch(() => undefined), // image is optional
       ])
       setState(s => ({ ...s, prose, imageUrl }))
-    } catch (err: any) {
-      setGenError(err.message || 'Generation failed. Check server config.')
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err))
+      setGenError(error.message || 'Generation failed. Check server config.')
     } finally {
       setGenerating(false)
     }
@@ -181,8 +182,9 @@ export default function Create() {
         theme: state.theme,
       })
       setState(s => ({ ...s, prose }))
-    } catch (err: any) {
-      setGenError(err.message || 'Generation failed.')
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err))
+      setGenError(error.message || 'Generation failed.')
     } finally {
       setGenerating(false)
     }

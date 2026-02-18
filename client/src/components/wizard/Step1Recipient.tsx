@@ -86,31 +86,6 @@ export default function Step1Recipient({
     })
   }
 
-  function updateSettingMood<K extends keyof NarrativeContext['settingMood']>(
-    key: K,
-    value: NarrativeContext['settingMood'][K],
-  ) {
-    onContextChange({
-      ...context,
-      settingMood: {
-        ...context.settingMood,
-        [key]: value,
-      },
-    })
-  }
-
-  function updateLifeContext<K extends keyof NarrativeContext['lifeContext']>(
-    key: K,
-    value: NarrativeContext['lifeContext'][K],
-  ) {
-    onContextChange({
-      ...context,
-      lifeContext: {
-        ...context.lifeContext,
-        [key]: value,
-      },
-    })
-  }
 
   return (
     <motion.div

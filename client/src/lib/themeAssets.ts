@@ -23,11 +23,11 @@ export function getThemeBackground(theme: Theme | string): string {
   return THEME_BACKGROUNDS['golden-warmth']
 }
 
-export function getThemeTextureLayers(_theme: Theme | string): string[] {
+export function getThemeTextureLayers(): string[] {
   return SHARED_TEXTURES
 }
 
-export function getThemeLottieOverlay(_theme: Theme | string): string | null {
+export function getThemeLottieOverlay(): string | null {
   return SHARED_LOTTIE_OVERLAY
 }
 

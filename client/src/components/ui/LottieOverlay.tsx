@@ -8,9 +8,13 @@ interface Props {
   loop?: boolean
 }
 
+interface AnimationData {
+  [key: string]: unknown
+}
+
 export default function LottieOverlay({ src, className, loop = true }: Props) {
   const shouldReduceMotion = useReducedMotion()
-  const [animationData, setAnimationData] = useState<any | null>(null)
+  const [animationData, setAnimationData] = useState<AnimationData | null>(null)
 
   useEffect(() => {
     if (!src || shouldReduceMotion) return

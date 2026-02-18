@@ -82,14 +82,14 @@ export default function Chronicle() {
   const overlay = THEME_OVERLAY[theme] || THEME_OVERLAY['golden-warmth']
 
   const backgroundImage = chronicle?.imageUrl || getThemeBackground(theme)
-  const textureLayers = getThemeTextureLayers(theme)
-  const lottieOverlay = getThemeLottieOverlay(theme)
+  const textureLayers = getThemeTextureLayers()
+  const lottieOverlay = getThemeLottieOverlay()
 
   const context = chronicle?.narrativeContext
   const lifePhrase = context?.lifeContext?.chapterTone || ''
   const primaryGoal = context?.messageIntent?.primaryGoal
   const stance = context?.relationshipPerspective?.emotionalStance
-  const intentLine = primaryGoal
+  const intentLine = primaryGoal && chronicle
     ? `A letter to ${primaryGoal} ${chronicle.recipient.name.toLowerCase() === 'you' ? '' : 'you'}`.trim()
     : ''
 
@@ -147,7 +147,6 @@ export default function Chronicle() {
         />
         {textureLayers.map((src, index) => (
           <motion.div
-            // eslint-disable-next-line react/no-array-index-key
             key={index}
             className={styles.textureLayer}
             style={{ backgroundImage: `url(${src})` }}
