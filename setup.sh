@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -e
 
 # Always run from repo root
 cd "$(dirname "$0")"
 
+echo "🔎 Checking Node version..."
+node -v
+echo
+
 echo "🔧 Installing root dependencies..."
-npm install
+npm ci
 
 echo "🔧 Installing server dependencies..."
-npm --prefix server install
+npm --prefix server ci
 
 echo "🔧 Installing client dependencies..."
-npm --prefix client install
-
-echo "✅ Dependencies installed."
+npm --prefix client ci
 
 echo
-echo "You can now start both server and client with:"
-echo "  npm run dev"
+echo "✅ Dependencies installed successfully."
+echo
+echo "🚀 Start the app with:"
+echo "   npm run dev"
