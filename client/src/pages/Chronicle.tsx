@@ -1,11 +1,16 @@
 import { useEffect, useState, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { fetchChronicle, logView, fetchStats } from '../lib/api'
+import { fetchChronicle, logView } from '../lib/api'
 import type { Chronicle } from '../types'
 import FloatingParticles from '../components/ui/FloatingParticles'
 import { getThemeBackground, getThemeTextureLayers, getThemeLottieOverlay } from '../lib/themeAssets'
 import LottieOverlay from '../components/ui/LottieOverlay'
+import Reveal from '../components/chronicle/Reveal'
+import ChronicleReading from '../components/chronicle/ChronicleReading'
+import Transition from '../components/chronicle/Transition'
+import AnimatedWish from '../components/chronicle/AnimatedWish'
+import Farewell from '../components/chronicle/Farewell'
 import styles from './Chronicle.module.css'
 
 const THEME_PARTICLES: Record<string, string> = {
@@ -32,14 +37,15 @@ const THEME_ACCENT: Record<string, string> = {
   'celestial':      '#c882c8',
 }
 
+type FlowStage = 'reveal' | 'reading' | 'transition' | 'wish' | 'farewell'
+
 export default function Chronicle() {
   const { slug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
   const [chronicle, setChronicle] = useState<Chronicle | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [revealed, setRevealed] = useState(false)
-  const [showFinal, setShowFinal] = useState(false)
-  const [stats, setStats] = useState<{ views: number } | null>(null)
+  const [flowStage, setFlowStage] = useState<FlowStage>('reveal')
   const heroRef = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
 
@@ -58,24 +64,6 @@ export default function Chronicle() {
       .finally(() => setLoading(false))
   }, [slug])
 
-  // Try to load stats if creator token exists
-  useEffect(() => {
-    if (!slug || !chronicle) return
-    const token = localStorage.getItem(`hl_token_${slug}`)
-    if (!token) return
-    fetchStats(slug, token)
-      .then(s => setStats(s))
-      .catch(() => {})
-  }, [slug, chronicle])
-
-  // Begin reveal sequence after load
-  useEffect(() => {
-    if (chronicle) {
-      const t = setTimeout(() => setRevealed(true), 400)
-      return () => clearTimeout(t)
-    }
-  }, [chronicle])
-
   const theme = chronicle?.theme || 'golden-warmth'
   const accent = THEME_ACCENT[theme] || THEME_ACCENT['golden-warmth']
   const particleColor = THEME_PARTICLES[theme] || THEME_PARTICLES['golden-warmth']
@@ -85,16 +73,18 @@ export default function Chronicle() {
   const textureLayers = getThemeTextureLayers()
   const lottieOverlay = getThemeLottieOverlay()
 
-  const context = chronicle?.narrativeContext
-  const lifePhrase = context?.lifeContext?.chapterTone || ''
-  const primaryGoal = context?.messageIntent?.primaryGoal
-  const stance = context?.relationshipPerspective?.emotionalStance
-  const intentLine = primaryGoal && chronicle
-    ? `A letter to ${primaryGoal} ${chronicle.recipient.name.toLowerCase() === 'you' ? '' : 'you'}`.trim()
-    : ''
-
-  // Split prose into paragraphs for staggered reveal
-  const paragraphs = chronicle?.prose.split('\n\n').filter(Boolean) || []
+  const generateWish = (): string => {
+    const recipient = chronicle?.recipient.name || 'you'
+    const occasion = chronicle?.occasion.label || 'this special moment'
+    const wishes = [
+      `May ${recipient} shine brightly on this ${occasion.toLowerCase()}.`,
+      `Wishing ${recipient} a magnificent ${occasion.toLowerCase()}.`,
+      `Here's to ${recipient}'s beautiful journey ahead.`,
+      `${recipient}, you are truly cherished.`,
+      `May your ${occasion.toLowerCase()} be as wonderful as you are.`,
+    ]
+    return wishes[Math.floor(Math.random() * wishes.length)]
+  }
 
   if (loading) {
     return (
@@ -116,10 +106,9 @@ export default function Chronicle() {
 
   return (
     <div className={styles.root} style={{ '--accent': accent } as React.CSSProperties}>
-      {/* Floating particles */}
+      {/* Background layers */}
       <FloatingParticles count={25} color={particleColor} />
 
-      {/* Hero image with parallax */}
       <div className={styles.heroWrap} ref={heroRef}>
         <motion.div
           className={styles.heroImage}
@@ -172,151 +161,58 @@ export default function Chronicle() {
         <div className={styles.heroOverlay} style={{ background: overlay }} />
       </div>
 
-      {/* Main content */}
-      <div className={styles.content}>
-        {lottieOverlay && (
-          <div className={styles.lottieLayer}>
-            <LottieOverlay src={lottieOverlay} />
-          </div>
-        )}
-
-        {/* Header */}
-        <AnimatePresence>
-          {revealed && (
-            <motion.header
-              className={styles.header}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className={styles.eyebrow} style={{ color: accent }}>Hearthlight</span>
-              <div className={styles.dividerLine} style={{ background: `linear-gradient(to right, transparent, ${accent}40, transparent)` }} />
-            </motion.header>
-          )}
-        </AnimatePresence>
-
-        {/* Occasion + name */}
-        <AnimatePresence>
-          {revealed && (
-            <motion.div
-              className={styles.occasion}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className={styles.occasionLabel}>{chronicle.occasion.label}</span>
-              <h1 className={styles.recipientName}>
-                For {chronicle.recipient.name}
-              </h1>
-              {lifePhrase && (
-                <p className={styles.lifeLine}>
-                  In this season of {lifePhrase.toLowerCase()}
-                </p>
-              )}
-              {(intentLine || stance) && (
-                <p className={styles.intentLine}>
-                  {intentLine}
-                  {intentLine && stance ? ' · ' : ''}
-                  {stance || ''}
-                </p>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Prose */}
-        <div className={styles.proseSection}>
-          {paragraphs.map((para, i) => (
-            <motion.p
-              key={i}
-              className={styles.para}
-              initial={{ opacity: 0, y: 24 }}
-              animate={revealed ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                delay: 0.7 + i * 0.25,
-                duration: 1.1,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              onAnimationComplete={() => {
-                if (i === paragraphs.length - 1) {
-                  setTimeout(() => setShowFinal(true), 600)
-                }
-              }}
-            >
-              {para}
-            </motion.p>
-          ))}
+      {lottieOverlay && (
+        <div className={styles.lottieLayer}>
+          <LottieOverlay src={lottieOverlay} />
         </div>
+      )}
 
-        {/* Final animated wish */}
-        <AnimatePresence>
-          {showFinal && (
-            <motion.div
-              className={styles.finalWish}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className={styles.finalOrb} style={{ background: `radial-gradient(circle, ${accent}30 0%, transparent 70%)` }} />
-              <motion.div
-                className={styles.finalLine}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                style={{ background: `linear-gradient(to right, transparent, ${accent}, transparent)` }}
-              />
-              <motion.p
-                className={styles.finalText}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 1.2 }}
-                style={{ color: accent }}
-              >
-                With all that you are, and all you are becoming —
-              </motion.p>
-              <motion.p
-                className={styles.finalName}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 1.1 }}
-              >
-                Happy {chronicle.occasion.label}, {chronicle.recipient.name}.
-              </motion.p>
-              <motion.div
-                className={styles.finalLine}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                style={{ background: `linear-gradient(to right, transparent, ${accent}, transparent)` }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Creator stats bar */}
-        {stats && (
-          <motion.div
-            className={styles.statsBar}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1 }}
-          >
-            <span className={styles.statsText}>
-              Viewed {stats.views} {stats.views === 1 ? 'time' : 'times'}
-            </span>
-          </motion.div>
+      {/* Flow stages */}
+      <AnimatePresence mode="wait">
+        {flowStage === 'reveal' && (
+          <Reveal
+            key="reveal"
+            recipientName={chronicle.recipient.name}
+            particleColor={particleColor}
+            onReveal={() => setFlowStage('reading')}
+          />
         )}
 
-        {/* Footer */}
-        <motion.footer
-          className={styles.footer}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ delay: 2.5, duration: 1 }}
-        >
-          Made with Hearthlight
-        </motion.footer>
-      </div>
+        {flowStage === 'reading' && (
+          <ChronicleReading
+            key="reading"
+            prose={chronicle.prose}
+            recipientName={chronicle.recipient.name}
+            occasionLabel={chronicle.occasion.label}
+            onComplete={() => setFlowStage('transition')}
+          />
+        )}
+
+        {flowStage === 'transition' && (
+          <Transition
+            key="transition"
+            onComplete={() => setFlowStage('wish')}
+          />
+        )}
+
+        {flowStage === 'wish' && (
+          <AnimatedWish
+            key="wish"
+            wish={generateWish()}
+            theme={theme}
+            onComplete={() => setFlowStage('farewell')}
+          />
+        )}
+
+        {flowStage === 'farewell' && (
+          <Farewell
+            key="farewell"
+            senderName={chronicle.recipient.name}
+            onShare={() => navigate('/')}
+            onReplay={() => setFlowStage('reveal')}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
