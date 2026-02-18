@@ -166,6 +166,78 @@
       "imageUrl": null,
       "createdAt": "2026-02-18T15:10:54.064Z",
       "updatedAt": "2026-02-18T15:10:54.064Z"
+    },
+    {
+      "id": "WWPQ-oJQN3kh8eOIzndtJ",
+      "slug": "U51Tp8XMZD",
+      "creatorToken": "K63hBAJnN0rIvJvtrJd9EUrfnBOjbR72",
+      "recipient": {
+        "name": "Dhart",
+        "relationship": "Friend",
+        "age": "26"
+      },
+      "occasion": {
+        "label": "Job change",
+        "date": "2026-03-01"
+      },
+      "narrative": {
+        "tone": "playful & light",
+        "sharedMemory": "Shared love for kenyan weather and food, and Nairobi"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Dhart",
+          "archetype": "",
+          "milestone": "Job change",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Kind",
+          "Curious",
+          "Playful"
+        ],
+        "behaviorExample": "With a goofy raccon-like demeanor",
+        "relationshipPerspective": {
+          "relationshipType": "Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "Seaside at golden hour",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "Juggling career prospects and future decisions. Adulting 101",
+          "chapterTone": "playful & light"
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "Always unpredictable and sassy",
+          "sharedMemoryTone": "Shared love for kenyan weather and food, and Nairobi",
+          "whyTheyMatter": "They let this stranger in and helped me with many a entertaining tid bits and health  tips"
+        },
+        "messageIntent": {
+          "primaryGoal": "encourage",
+          "emotionalMix": [
+            "warm",
+            "playful"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "poetic",
+          "metaphorDensity": "rich"
+        }
+      },
+      "theme": "ocean-calm",
+      "prose": "The air hums with the soft, unhurried symphony of the waves, Dhart, much like the gentle stirrings that mark this particular turn in your own tide. As the golden light stretches across the water, painting the world in hues of quiet possibility, I find myself thinking of you and this dance between known shores and whatever exhilarating, uncharted waters lie ahead. It's a phase that, for many, is a knot of serious arithmetic, this \"adulting 101,\" yet I know you approach even these weighty equations with a twinkle, that delightful, almost raccoon-like mischief in your eye, ready to discover where the sweetest hidden berries might be.\n\nIt’s that very curiosity, that bright and unquenchable spark, which has always been your truest compass. I remember the easy warmth you offered, letting a stranger wander into your world with such open, generous grace, much like the way the Nairobi sun would wrap us in its familiar, comforting embrace. You, who so kindly shared not just the vibrant tapestry of that city’s life, but also those entertaining tidbits and quiet, thoughtful health tips, always observing, always caring. It was in those moments, over shared meals that carried the scent of home, that I truly saw the depth of the kindness you carry, a quiet current flowing beneath all your playful adventures.\n\nNow, as you stand at the threshold of new paths, weighing prospects and dreams, trust that beautiful instinct of yours. The questions you ponder are merely new invitations for that inherent playfulness to discover fresh landscapes, for your kind heart to leave new imprints, and for your ever-curious spirit to unravel the next fascinating mystery. This isn't just a job change; it’s another unfolding page in the remarkable story you are so uniquely writing.\n\nMay the light of this new beginning illuminate your path with an clarity as brilliant as the golden hour, and may the journey ahead be as rich with discovery as it is with gentle ease. May your intrinsic kindness continue to draw beautiful experiences to you, your boundless curiosity guide you to places of wonder, and your delightful playfulness soften every edge, ensuring that even in the serious moments, joy is always a possibility just around the bend.",
+      "imageUrl": null,
+      "createdAt": "2026-02-18T17:39:14.280Z",
+      "updatedAt": "2026-02-18T17:39:14.280Z"
     }
   ],
   "views": [
