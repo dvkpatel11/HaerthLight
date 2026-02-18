@@ -211,8 +211,10 @@ export default function Create() {
               <Step1Recipient
                 key="s1"
                 recipient={state.recipient}
+                occasion={state.occasion}
                 context={state.narrativeContext}
                 onRecipientChange={updateRecipient}
+                onOccasionChange={updateOccasion}
                 onContextChange={updateNarrativeContext}
                 onNext={() => setStep(2)}
               />
@@ -220,9 +222,10 @@ export default function Create() {
             {step === 2 && (
               <Step2Occasion
                 key="s2"
-                data={state.occasion}
-                recipient={state.recipient.name}
-                onChange={updateOccasion}
+                context={state.narrativeContext}
+                narrative={state.narrative}
+                onContextChange={updateNarrativeContext}
+                onNarrativeChange={updateNarrative}
                 onNext={() => setStep(3)}
                 onBack={() => setStep(1)}
               />
@@ -231,7 +234,9 @@ export default function Create() {
               <Step3Narrative
                 key="s3"
                 data={state.narrative}
+                context={state.narrativeContext}
                 onChange={updateNarrative}
+                onContextChange={updateNarrativeContext}
                 onNext={() => setStep(4)}
                 onBack={() => setStep(2)}
               />
@@ -240,7 +245,9 @@ export default function Create() {
               <Step4Theme
                 key="s4"
                 value={state.theme}
+                context={state.narrativeContext}
                 onChange={updateTheme}
+                onContextChange={updateNarrativeContext}
                 onNext={generate}
                 onBack={() => setStep(3)}
               />

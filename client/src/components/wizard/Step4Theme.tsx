@@ -1,49 +1,68 @@
 import { motion } from 'framer-motion'
-import type { Theme } from '../../types'
+import type { Theme, NarrativeContext } from '../../types'
 import { getThemeBackground } from '../../lib/themeAssets'
 import styles from './Step.module.css'
 
 interface Props {
   value: Theme
+  context: NarrativeContext
   onChange: (t: Theme) => void
+  onContextChange: (ctx: NarrativeContext) => void
   onNext: () => void
   onBack: () => void
 }
 
-const THEMES: { id: Theme; label: string; desc: string; gradient: string }[] = [
+const THEMES: { id: Theme; label: string; desc: string }[] = [
   {
     id: 'golden-warmth',
     label: 'Golden Warmth',
     desc: 'Amber hour, autumn light',
-    gradient: 'linear-gradient(135deg, #3d2b0f 0%, #6b4c1e 40%, #c9a84c 100%)',
   },
   {
     id: 'midnight-bloom',
     label: 'Midnight Bloom',
     desc: 'Moonlit garden, deep indigo',
-    gradient: 'linear-gradient(135deg, #0d0a1f 0%, #2a1a4a 40%, #7b4f9e 100%)',
   },
   {
     id: 'ocean-calm',
     label: 'Ocean Calm',
     desc: 'Teal dawn, still waters',
-    gradient: 'linear-gradient(135deg, #071f2a 0%, #0d4a5e 40%, #2a9ab5 100%)',
   },
   {
     id: 'forest-dawn',
     label: 'Forest Dawn',
     desc: 'Ancient trees, morning mist',
-    gradient: 'linear-gradient(135deg, #0c1f0e 0%, #1e4a22 40%, #4a8c3f 100%)',
   },
   {
     id: 'celestial',
     label: 'Celestial',
     desc: 'Deep cosmos, rose nebula',
-    gradient: 'linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 40%, #7a3a7a 100%)',
   },
 ]
 
-export default function Step4Theme({ value, onChange, onNext, onBack }: Props) {
+const ENVIRONMENT_PRESETS = [
+  'Quiet evening at home',
+  'City lights at night',
+  'Forest path at dawn',
+  'Seaside at golden hour',
+]
+
+const SYMBOLIC_STYLES = ['Mythic realm', 'Coastal town', 'Modern city', 'Pastoral landscape']
+
+export default function Step4Theme({ value, context, onChange, onContextChange, onNext, onBack }: Props) {
+  function updateSettingMood<K extends keyof NarrativeContext['settingMood']>(
+    key: K,
+    val: NarrativeContext['settingMood'][K],
+  ) {
+    onContextChange({
+      ...context,
+      settingMood: {
+        ...context.settingMood,
+        [key]: val,
+      },
+    })
+  }
+
   return (
     <motion.div
       className={styles.step}
@@ -53,45 +72,116 @@ export default function Step4Theme({ value, onChange, onNext, onBack }: Props) {
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className={styles.header}>
-        <h2 className={styles.title}>Set the atmosphere</h2>
+        <h2 className={styles.title}>Visual atmosphere</h2>
         <p className={styles.desc}>
-          The visual world your chronicle will inhabit.
+          Choose the visual world and backdrop your chronicle will live in.
         </p>
       </div>
 
-      <div className={styles.themeGrid}>
-        {THEMES.map(theme => (
-          <button
-            key={theme.id}
-            className={`${styles.themeCard} ${value === theme.id ? styles.themeActive : ''}`}
-            onClick={() => onChange(theme.id)}
-          >
-            <div
-              className={styles.themePreview}
-              style={{
-                backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.1)), url(${getThemeBackground(theme.id)})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            />
-            <div className={styles.themeMeta}>
-              <span className={styles.themeLabel}>{theme.label}</span>
-              <span className={styles.themeDesc}>{theme.desc}</span>
+      <div className={styles.fields}>
+        <div className={styles.fieldGroup}>
+          <h3 className={styles.sectionTitle}>Theme</h3>
+          <p className={styles.sectionHint}>This controls the overall color palette and artwork.</p>
+
+          <div className={styles.themeGrid}>
+            {THEMES.map(theme => (
+              <button
+                key={theme.id}
+                type="button"
+                className={`${styles.themeCard} ${value === theme.id ? styles.themeActive : ''}`}
+                onClick={() => onChange(theme.id)}
+              >
+                <div
+                  className={styles.themePreview}
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.1)), url(${getThemeBackground(
+                      theme.id,
+                    )})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                <div className={styles.themeMeta}>
+                  <span className={styles.themeLabel}>{theme.label}</span>
+                  <span className={styles.themeDesc}>{theme.desc}</span>
+                </div>
+                {value === theme.id && (
+                  <div className={styles.themeCheck}>
+                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+                      <path
+                        d="M1 5L4.5 8.5L11 1.5"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.fieldGroup}>
+          <h3 className={styles.sectionTitle}>Backdrop & atmosphere</h3>
+          <p className={styles.sectionHint}>We&apos;ll use this to set the opening scene.</p>
+
+          <div className={styles.occasionGrid}>
+            {ENVIRONMENT_PRESETS.map(env => (
+              <button
+                key={env}
+                type="button"
+                className={`${styles.chip} ${
+                  context.settingMood.environmentMood === env ? styles.chipActive : ''
+                }`}
+                onClick={() => updateSettingMood('environmentMood', env)}
+              >
+                {env}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.fieldRow}>
+            <div className={styles.field}>
+              <label className={styles.label}>
+                Symbolic setting style <span className={styles.optional}>(optional)</span>
+              </label>
+              <select
+                value={context.settingMood.symbolicStyle || ''}
+                onChange={e => updateSettingMood('symbolicStyle', e.target.value)}
+              >
+                <option value="">Choose style…</option>
+                {SYMBOLIC_STYLES.map(style => (
+                  <option key={style} value={style}>
+                    {style}
+                  </option>
+                ))}
+              </select>
             </div>
-            {value === theme.id && (
-              <div className={styles.themeCheck}>
-                <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-                  <path d="M1 5L4.5 8.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-            )}
-          </button>
-        ))}
+
+            <div className={styles.field}>
+              <label className={styles.label}>
+                Atmosphere in one phrase <span className={styles.optional}>(optional)</span>
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Tender and hopeful, with a little starlight."
+                value={context.settingMood.emotionalAtmosphere || ''}
+                onChange={e => updateSettingMood('emotionalAtmosphere', e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className={styles.actions}>
-        <button className="btn btn-ghost" onClick={onBack}>Back</button>
-        <button className="btn btn-primary" onClick={onNext}>Generate Chronicle</button>
+        <button className="btn btn-ghost" onClick={onBack}>
+          Back
+        </button>
+        <button className="btn btn-primary" onClick={onNext}>
+          Generate Chronicle
+        </button>
       </div>
     </motion.div>
   )

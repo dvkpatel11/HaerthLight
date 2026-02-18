@@ -2,10 +2,10 @@ import { motion } from 'framer-motion'
 import styles from './WizardProgress.module.css'
 
 const STEPS = [
-  { n: 1, label: 'Recipient' },
-  { n: 2, label: 'Occasion' },
-  { n: 3, label: 'Narrative' },
-  { n: 4, label: 'Theme' },
+  { n: 1, label: 'Addressee' },
+  { n: 2, label: 'Life & Relationship' },
+  { n: 3, label: 'Style' },
+  { n: 4, label: 'Visuals' },
   { n: 5, label: 'Preview' },
 ]
 
