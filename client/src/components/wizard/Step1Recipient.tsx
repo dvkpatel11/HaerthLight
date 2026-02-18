@@ -276,6 +276,7 @@ export default function Step1Recipient({
               }
             />
           </div>
+        </div>
       </div>
 
       <div className={styles.actions}>
