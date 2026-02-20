@@ -70,6 +70,7 @@ export default function Chronicle() {
   const overlay = THEME_OVERLAY[theme] || THEME_OVERLAY['golden-warmth']
 
   const backgroundImage = chronicle?.imageUrl || getThemeBackground(theme)
+  const showAnimation = !!chronicle?.animationUrl && !shouldReduceMotion
   const textureLayers = getThemeTextureLayers()
   const lottieOverlay = getThemeLottieOverlay()
 
@@ -110,30 +111,42 @@ export default function Chronicle() {
       <FloatingParticles count={25} color={particleColor} />
 
       <div className={styles.heroWrap} ref={heroRef}>
-        <motion.div
-          className={styles.heroImage}
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-            y: shouldReduceMotion ? undefined : imageParallax,
-            opacity: imageOpacity,
-          }}
-          animate={
-            shouldReduceMotion
-              ? undefined
-              : {
-                  scale: [1, 1.02, 1],
-                }
-          }
-          transition={
-            shouldReduceMotion
-              ? undefined
-              : {
-                  duration: 40,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }
-          }
-        />
+        {showAnimation ? (
+          <video
+            className={styles.heroImage}
+            src={chronicle.animationUrl}
+            poster={backgroundImage}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : (
+          <motion.div
+            className={styles.heroImage}
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+              y: shouldReduceMotion ? undefined : imageParallax,
+              opacity: imageOpacity,
+            }}
+            animate={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    scale: [1, 1.02, 1],
+                  }
+            }
+            transition={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    duration: 40,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }
+            }
+          />
+        )}
         {textureLayers.map((src, index) => (
           <motion.div
             key={index}
@@ -173,6 +186,7 @@ export default function Chronicle() {
           <Reveal
             key="reveal"
             recipientName={chronicle.recipient.name}
+            occasionLabel={chronicle.occasion.label}
             particleColor={particleColor}
             onReveal={() => setFlowStage('reading')}
           />
@@ -191,6 +205,7 @@ export default function Chronicle() {
         {flowStage === 'transition' && (
           <Transition
             key="transition"
+            occasionLabel={chronicle.occasion.label}
             onComplete={() => setFlowStage('wish')}
           />
         )}
@@ -200,6 +215,7 @@ export default function Chronicle() {
             key="wish"
             wish={generateWish()}
             theme={theme}
+            occasionLabel={chronicle.occasion.label}
             onComplete={() => setFlowStage('farewell')}
           />
         )}
@@ -208,6 +224,7 @@ export default function Chronicle() {
           <Farewell
             key="farewell"
             senderName={chronicle.recipient.name}
+            occasionLabel={chronicle.occasion.label}
             onShare={() => navigate('/')}
             onReplay={() => setFlowStage('reveal')}
           />

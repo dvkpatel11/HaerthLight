@@ -7,7 +7,16 @@ export const chroniclesRouter = express.Router();
 // Create / save a chronicle
 chroniclesRouter.post('/', async (req, res) => {
   try {
-    const { recipient, occasion, narrative, narrativeContext, theme, prose, imageUrl } = req.body;
+    const {
+      recipient,
+      occasion,
+      narrative,
+      narrativeContext,
+      theme,
+      prose,
+      imageUrl,
+      animationUrl,
+    } = req.body;
 
     if (!prose) return res.status(400).json({ error: 'prose is required' });
 
@@ -22,6 +31,7 @@ chroniclesRouter.post('/', async (req, res) => {
       theme,
       prose,
       imageUrl: imageUrl || null,
+      animationUrl: animationUrl || null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

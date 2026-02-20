@@ -305,9 +305,304 @@ generateRouter.post("/prose", async (req, res) => {
   }
 });
 
-// Image generation: returns null — Chronicle page uses CSS theme gradients as background
-generateRouter.post("/image", async (_req, res) => {
-  res.json({ imageUrl: null });
+async function generateThemeImage(body) {
+  const apiKey = process.env.REPLICATE_API_KEY;
+  if (!apiKey) {
+    throw new Error("REPLICATE_API_KEY not configured");
+  }
+
+  const { theme, recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
+    body || {};
+
+  const themeConfig = THEMES[theme] || THEMES["golden-warmth"];
+  const basePrompt = themeConfig.imagePrompt;
+
+  const relationship =
+    (narrativeContext.relationshipPerspective &&
+      narrativeContext.relationshipPerspective.relationshipType) ||
+    recipient.relationship ||
+    "someone dear to the narrator";
+
+  const tone =
+    (narrativeContext.lifeContext && narrativeContext.lifeContext.chapterTone) ||
+    narrative.tone ||
+    "warm & heartfelt";
+
+  const environment =
+    (narrativeContext.settingMood && narrativeContext.settingMood.environmentMood) || "";
+  const atmosphere =
+    (narrativeContext.settingMood && narrativeContext.settingMood.emotionalAtmosphere) || "";
+
+  const occasionLabel = occasion.label || "a special moment";
+
+  const detailParts = [
+    `for a ${tone.toLowerCase()} chronicle about ${relationship}`,
+    `set around ${occasionLabel.toLowerCase()}`,
+    environment && `environment: ${environment}`,
+    atmosphere && `atmosphere: ${atmosphere}`,
+    "no people, no faces, no text, wholesome, respectful, no explicit content, no violence",
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const prompt = `${basePrompt}, ${detailParts}`;
+
+  const version =
+    "39ed52f2a78e934b3ba6e2a89f5b1c712de7dfea535525255b1aa35c5565e08b";
+
+  const createRes = await fetch("https://api.replicate.com/v1/predictions", {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      version,
+      input: {
+        prompt,
+        negative_prompt:
+          "text, watermark, people, faces, blurry, low quality, cartoon",
+        width: 1344,
+        height: 768,
+        num_inference_steps: 30,
+        guidance_scale: 7.5,
+      },
+    }),
+  });
+
+  if (!createRes.ok) {
+    const errBody = await createRes.text();
+    throw new Error(
+      `Replicate create failed: ${createRes.status} ${createRes.statusText} ${errBody}`
+    );
+  }
+
+  let prediction = await createRes.json();
+
+  // Poll until the prediction is finished
+  // Limit total wait to avoid hanging indefinitely
+  const maxAttempts = 20;
+  const pollIntervalMs = 1500;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    if (
+      prediction.status === "succeeded" ||
+      prediction.status === "failed" ||
+      prediction.status === "canceled"
+    ) {
+      break;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+
+    const pollRes = await fetch(
+      `https://api.replicate.com/v1/predictions/${prediction.id}`,
+      {
+        headers: {
+          Authorization: `Token ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!pollRes.ok) {
+      const errBody = await pollRes.text();
+      throw new Error(
+        `Replicate poll failed: ${pollRes.status} ${pollRes.statusText} ${errBody}`
+      );
+    }
+
+    prediction = await pollRes.json();
+  }
+
+  if (prediction.status !== "succeeded") {
+    throw new Error(
+      prediction.error || `Replicate prediction ${prediction.status || "failed"}`
+    );
+  }
+
+  const output = prediction.output;
+  const imageUrl = Array.isArray(output) ? output[0] : output;
+
+  if (!imageUrl) {
+    throw new Error("Replicate returned no image URL");
+  }
+
+  return imageUrl;
+}
+
+async function generateThemeAnimation(body) {
+  const apiKey = process.env.REPLICATE_API_KEY;
+  const videoVersion = process.env.REPLICATE_VIDEO_VERSION;
+
+  if (!apiKey) {
+    throw new Error("REPLICATE_API_KEY not configured");
+  }
+  if (!videoVersion) {
+    throw new Error("REPLICATE_VIDEO_VERSION not configured");
+  }
+
+  const { theme, recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
+    body || {};
+
+  const themeConfig = THEMES[theme] || THEMES["golden-warmth"];
+  const basePrompt = themeConfig.imagePrompt;
+
+  const relationship =
+    (narrativeContext.relationshipPerspective &&
+      narrativeContext.relationshipPerspective.relationshipType) ||
+    recipient.relationship ||
+    "someone dear to the narrator";
+
+  const tone =
+    (narrativeContext.lifeContext && narrativeContext.lifeContext.chapterTone) ||
+    narrative.tone ||
+    "warm & heartfelt";
+
+  const environment =
+    (narrativeContext.settingMood && narrativeContext.settingMood.environmentMood) || "";
+  const atmosphere =
+    (narrativeContext.settingMood && narrativeContext.settingMood.emotionalAtmosphere) || "";
+
+  const occasionLabel = occasion.label || "a special moment";
+
+  const detailParts = [
+    `short, subtle looping motion`,
+    `for a ${tone.toLowerCase()} chronicle about ${relationship}`,
+    `set around ${occasionLabel.toLowerCase()}`,
+    environment && `environment: ${environment}`,
+    atmosphere && `atmosphere: ${atmosphere}`,
+    "no people, no faces, no text, wholesome, respectful, no explicit content, no violence",
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const prompt = `${basePrompt}, ${detailParts}`;
+
+  const createRes = await fetch("https://api.replicate.com/v1/predictions", {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      version: videoVersion,
+      input: {
+        prompt,
+      },
+    }),
+  });
+
+  if (!createRes.ok) {
+    const errBody = await createRes.text();
+    throw new Error(
+      `Replicate video create failed: ${createRes.status} ${createRes.statusText} ${errBody}`
+    );
+  }
+
+  let prediction = await createRes.json();
+
+  const maxAttempts = 40;
+  const pollIntervalMs = 1500;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    if (
+      prediction.status === "succeeded" ||
+      prediction.status === "failed" ||
+      prediction.status === "canceled"
+    ) {
+      break;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+
+    const pollRes = await fetch(
+      `https://api.replicate.com/v1/predictions/${prediction.id}`,
+      {
+        headers: {
+          Authorization: `Token ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!pollRes.ok) {
+      const errBody = await pollRes.text();
+      throw new Error(
+        `Replicate video poll failed: ${pollRes.status} ${pollRes.statusText} ${errBody}`
+      );
+    }
+
+    prediction = await pollRes.json();
+  }
+
+  if (prediction.status !== "succeeded") {
+    throw new Error(
+      prediction.error || `Replicate video prediction ${prediction.status || "failed"}`
+    );
+  }
+
+  const output = prediction.output;
+  const animationUrl = Array.isArray(output) ? output[0] : output;
+
+  if (!animationUrl) {
+    throw new Error("Replicate returned no animation URL");
+  }
+
+  return animationUrl;
+}
+
+// Generate themed background image via external OSS model (Replicate SDXL)
+generateRouter.post("/image", async (req, res) => {
+  try {
+    const imageUrl = await generateThemeImage(req.body);
+    res.json({ imageUrl });
+  } catch (err) {
+    console.error("Image generation error:", err);
+
+    if (err instanceof Error && /REPLICATE_API_KEY not configured/i.test(err.message)) {
+      return res
+        .status(500)
+        .json({ error: "Image generation not configured (REPLICATE_API_KEY missing)" });
+    }
+
+    return res
+      .status(500)
+      .json({
+        error: "Image generation failed",
+        detail: err instanceof Error ? err.message : String(err),
+      });
+  }
+});
+
+// Generate short looping animation via external OSS video model on Replicate
+generateRouter.post("/animation", async (req, res) => {
+  try {
+    const animationUrl = await generateThemeAnimation(req.body);
+    res.json({ animationUrl });
+  } catch (err) {
+    console.error("Animation generation error:", err);
+
+    if (err instanceof Error) {
+      if (/REPLICATE_API_KEY not configured/i.test(err.message)) {
+        return res
+          .status(500)
+          .json({ error: "Animation generation not configured (REPLICATE_API_KEY missing)" });
+      }
+      if (/REPLICATE_VIDEO_VERSION not configured/i.test(err.message)) {
+        return res
+          .status(500)
+          .json({ error: "Animation generation not configured (REPLICATE_VIDEO_VERSION missing)" });
+      }
+    }
+
+    return res
+      .status(500)
+      .json({
+        error: "Animation generation failed",
+        detail: err instanceof Error ? err.message : String(err),
+      });
+  }
 });
 
 export { THEMES };

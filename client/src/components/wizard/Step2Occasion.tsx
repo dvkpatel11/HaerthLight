@@ -19,7 +19,9 @@ export default function Step2Occasion({
   onNext,
   onBack,
 }: Props) {
-  const valid = (context.traits && context.traits.length > 0) || (narrative.sharedMemory?.trim().length ?? 0) > 0
+  const hasTraits = Array.isArray(context.traits) && context.traits.length > 0
+  const sharedMemory = (narrative.sharedMemory || '').trim()
+  const valid = hasTraits || sharedMemory.length > 0
 
   function updateLifeContext<K extends keyof NarrativeContext['lifeContext']>(
     key: K,

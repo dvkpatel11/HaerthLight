@@ -18,7 +18,7 @@ import Step2Occasion from '../components/wizard/Step2Occasion'
 import Step3Narrative from '../components/wizard/Step3Narrative'
 import Step4Theme from '../components/wizard/Step4Theme'
 import Step5Preview from '../components/wizard/Step5Preview'
-import { generateProse, generateImage } from '../lib/api'
+import { generateProse, generateImage, generateAnimation } from '../lib/api'
 import styles from './Create.module.css'
 
 const DEFAULT_GOAL: MessageGoal = 'celebrate'
@@ -76,6 +76,7 @@ const INITIAL_STATE: WizardState = {
   theme: 'golden-warmth',
   prose: '',
   imageUrl: undefined,
+  animationUrl: undefined,
 }
 
 export default function Create() {
@@ -164,17 +165,26 @@ export default function Create() {
     setStep(5)
 
     try {
-      const [prose, imageUrl] = await Promise.all([
-        generateProse({
-          recipient: state.recipient,
-          occasion: state.occasion,
-          narrative: state.narrative,
-          narrativeContext: state.narrativeContext,
-          theme: state.theme,
-        }),
-        generateImage(state.theme).catch(() => undefined), // image is optional
+      const payload = {
+        recipient: state.recipient,
+        occasion: state.occasion,
+        narrative: state.narrative,
+        narrativeContext: state.narrativeContext,
+        theme: state.theme,
+      }
+
+      const [prose, imageUrl, animationUrl] = await Promise.all([
+        generateProse(payload),
+        generateImage(payload).catch(() => undefined), // image is optional
+        generateAnimation(payload).catch(() => undefined), // animation is optional
       ])
-      setState(s => ({ ...s, prose, imageUrl }))
+
+      setState(s => ({
+        ...s,
+        prose,
+        imageUrl,
+        animationUrl,
+      }))
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err))
       setGenError(error.message || 'Generation failed. Check server config.')

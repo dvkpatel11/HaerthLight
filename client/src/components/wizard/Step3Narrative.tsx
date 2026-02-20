@@ -40,7 +40,9 @@ const STYLES: LiteraryStyle[] = [
 const METAPHOR_LEVELS: MetaphorDensity[] = ['low', 'medium', 'rich']
 
 export default function Step3Narrative({ data, context, onChange, onContextChange, onNext, onBack }: Props) {
-  const valid = data.tone && data.tone.length > 0
+  const hasTone = !!data.tone && data.tone.length > 0
+  const hasPrimaryGoal = !!context.messageIntent.primaryGoal
+  const valid = hasTone && hasPrimaryGoal
 
   function updateMessageIntent(partial: Partial<NarrativeContext['messageIntent']>) {
     onContextChange({

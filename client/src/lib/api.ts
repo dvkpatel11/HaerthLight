@@ -16,11 +16,13 @@ export async function generateProse(state: Omit<WizardState, 'prose' | 'imageUrl
   return prose;
 }
 
-export async function generateImage(theme: string): Promise<string> {
+export async function generateImage(
+  state: Omit<WizardState, 'prose' | 'imageUrl' | 'animationUrl'>
+): Promise<string> {
   const res = await fetch(`${BASE}/generate/image`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ theme }),
+    body: JSON.stringify(state),
   });
   if (!res.ok) {
     const err = await res.json();
@@ -28,6 +30,22 @@ export async function generateImage(theme: string): Promise<string> {
   }
   const { imageUrl } = await res.json();
   return imageUrl;
+}
+
+export async function generateAnimation(
+  state: Omit<WizardState, 'prose' | 'imageUrl' | 'animationUrl'>
+): Promise<string> {
+  const res = await fetch(`${BASE}/generate/animation`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(state),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Animation generation failed');
+  }
+  const { animationUrl } = await res.json();
+  return animationUrl;
 }
 
 export async function saveChronicle(

@@ -63,15 +63,15 @@ export default function Step5Preview({
             className="btn btn-primary"
             onClick={() => navigator.clipboard.writeText(url)}
           >
-            Copy
+            📋 Copy
           </button>
         </div>
         <div className={previewStyles.savedActions}>
           <button className="btn btn-ghost" onClick={() => navigate(`/c/${saved.slug}`)}>
-            Preview as recipient
+            👁 Preview
           </button>
           <button className="btn btn-ghost" onClick={() => navigate('/')}>
-            Create another
+            ✨ New chronicle
           </button>
         </div>
         <p className={previewStyles.tokenNote}>
@@ -132,11 +132,11 @@ export default function Step5Preview({
           </div>
 
           <div className={previewStyles.toolbar}>
-            <button className="btn btn-ghost" onClick={() => setEditing(!editing)}>
-              {editing ? 'Done editing' : 'Edit prose'}
-            </button>
+          <button className="btn btn-ghost" onClick={() => setEditing(!editing)}>
+            {editing ? '✓ Done' : '✎ Edit'}
+          </button>
             <button className="btn btn-ghost" onClick={onRegenerate} disabled={generating}>
-              Regenerate
+              ↻ Refresh
             </button>
           </div>
         </>
@@ -145,13 +145,13 @@ export default function Step5Preview({
       {saveError && <p className={previewStyles.saveError}>{saveError}</p>}
 
       <div className={styles.actions}>
-        <button className="btn btn-ghost" onClick={onBack}>Back</button>
+        <button className="btn btn-ghost" onClick={onBack}>← Back</button>
         <button
           className="btn btn-primary"
           onClick={handleSave}
           disabled={saving || generating || !state.prose}
         >
-          {saving ? <><span className="spinner" /> Saving…</> : 'Share Chronicle'}
+          {saving ? <><span className="spinner" /> Saving…</> : 'Share ✨'}
         </button>
       </div>
     </motion.div>

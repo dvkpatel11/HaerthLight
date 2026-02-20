@@ -49,10 +49,10 @@ export default function Step1Recipient({
   onContextChange,
   onNext,
 }: Props) {
-  const canProceed =
-    recipient.name.trim().length > 0 &&
-    recipient.relationship.length > 0 &&
-    occasion.label.trim().length > 0
+  const hasName = recipient.name.trim().length > 0
+  const hasRelationship = recipient.relationship.trim().length > 0
+  const hasOccasion = occasion.label.trim().length > 0
+  const canProceed = hasName && hasRelationship && hasOccasion
 
   function updateSubject<K extends keyof NarrativeContext['subject']>(key: K, value: NarrativeContext['subject'][K]) {
     onContextChange({

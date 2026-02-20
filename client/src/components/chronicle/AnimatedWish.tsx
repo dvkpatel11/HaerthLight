@@ -4,11 +4,58 @@ import styles from './Flow.module.css'
 interface Props {
   wish: string
   theme: string
+  occasionLabel?: string
   onComplete: () => void
 }
 
-export default function AnimatedWish({ wish, theme, onComplete }: Props) {
+function getOccasionCategory(label?: string) {
+  if (!label) return 'general'
+  const lower = label.toLowerCase()
+  if (lower.includes('birthday')) return 'birthday'
+  if (lower.includes('anniversary') || lower.includes('wedding')) return 'anniversary'
+  if (lower.includes('graduation')) return 'graduation'
+  if (lower.includes('new chapter')) return 'new_chapter'
+  if (lower.includes('recovery')) return 'recovery'
+  if (lower.includes('achievement')) return 'achievement'
+  if (lower.includes('farewell')) return 'farewell'
+  if (lower.includes('welcome')) return 'welcome'
+  if (lower.includes('holiday')) return 'holiday'
+  if (lower.includes('just because') || lower.includes('just-because')) return 'just_because'
+  return 'general'
+}
+
+function getCtaLabel(occasionLabel?: string) {
+  const category = getOccasionCategory(occasionLabel)
+
+  switch (category) {
+    case 'birthday':
+      return 'Send a little birthday light back'
+    case 'anniversary':
+      return 'Send a little warmth back'
+    case 'graduation':
+      return 'Send a cheer forward'
+    case 'new_chapter':
+      return 'Send courage into this chapter'
+    case 'recovery':
+      return 'Send a gentle note back'
+    case 'achievement':
+      return 'Send a quiet applause back'
+    case 'farewell':
+      return 'Carry this wish with you'
+    case 'welcome':
+      return 'Send a hello back'
+    case 'holiday':
+      return 'Send a festive spark back'
+    case 'just_because':
+      return 'Send a small smile back'
+    default:
+      return 'Send a smile back'
+  }
+}
+
+export default function AnimatedWish({ wish, theme, occasionLabel, onComplete }: Props) {
   const words = wish.split(' ')
+  const ctaLabel = getCtaLabel(occasionLabel)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -79,7 +126,7 @@ export default function AnimatedWish({ wish, theme, onComplete }: Props) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          ❤️ Send a Smile Back
+          {ctaLabel}
         </motion.button>
       </motion.div>
     </motion.div>

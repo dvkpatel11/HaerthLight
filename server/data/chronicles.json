@@ -238,6 +238,286 @@
       "imageUrl": null,
       "createdAt": "2026-02-18T17:39:14.280Z",
       "updatedAt": "2026-02-18T17:39:14.280Z"
+    },
+    {
+      "id": "H1f9zIXwVvdk_-LWhqioy",
+      "slug": "WoyApDpJRD",
+      "creatorToken": "-VnTXIjWqavSHkzicT-XNKW9ZOzVlBt5",
+      "recipient": {
+        "name": "Hrishit",
+        "relationship": "Best Friend",
+        "age": "28"
+      },
+      "occasion": {
+        "label": "Just Because",
+        "date": "2026-02-20"
+      },
+      "narrative": {
+        "tone": "celebratory & joyful",
+        "sharedMemory": "We started this jpourney with sleepless nights working part time while building ourselves"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Hrishit",
+          "archetype": "",
+          "milestone": "Just Because",
+          "lifePhase": ""
+        },
+        "traits": [],
+        "behaviorExample": "Supermassive crackhead who will fight for his loved ones",
+        "relationshipPerspective": {
+          "relationshipType": "Best Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "Seaside at golden hour",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "Learning how to chart their own reality no matter what. Manifest their life",
+          "chapterTone": "celebratory & joyful"
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "",
+          "sharedMemoryTone": "We started this jpourney with sleepless nights working part time while building ourselves",
+          "whyTheyMatter": ""
+        },
+        "messageIntent": {
+          "primaryGoal": "reassure",
+          "emotionalMix": [
+            "reverent",
+            "bittersweet"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "modern-literary",
+          "metaphorDensity": "medium"
+        }
+      },
+      "theme": "midnight-bloom",
+      "prose": "There are moments when the world seems to pause, steeped in a quality of light that feels almost sacramental, much like the gentle alchemy of this golden hour unfolding over the sea. In such stillness, my thoughts drift, unbidden, to you. It's a \"just because\" feeling, really – a quiet observation of the magnificent way you’re learning to chart your own reality, to draw forth your life from the wellspring of your truest self. To witness this particular chapter of yours, vibrant and luminous, is to feel a tender sort of awe, like watching a magnificent ship finally find its true wind.\n\nI remember, so distinctly, those early mornings that bled into sleepless nights, our shared whispers against the quiet hum of the world as we worked, building not just our future, but the very foundations of who we would become. It was then, amidst the quiet ambition, that I first truly understood the bedrock of your character – that formidable spirit, a supermassive crackhead readiness to stand, unwavering, for those you cherish. That same fierce, protective energy, I see now, is what empowers you to fight for your own vision, too, carving out a space for your dreams with an admirable, almost palpable joy.\n\nTo watch you unfurl your own map now, not following pre-drawn lines but sketching new coastlines with such confidence and verve, is a profound gift. There’s a beautiful, resonant hum to your days, a joyous momentum as you manifest, piece by precious piece, the life you are meant to live. It is a journey of quiet courage, this learning to trust the deep currents within you, to navigate by the stars of your own making, and the brightness of it feels as expansive and hopeful as the horizon stretching endlessly before us at dusk.\n\nAnd so, as the last light kisses the waves, leaving behind a sky pregnant with possibility, my wish for you is simple yet profound. May the winds always be kind to your sails, Hrishit, and may your compass forever point true, guided not by external clamor, but by the unwavering heartbeat of your own magnificent spirit. May every unwritten chapter be imbued with the same vibrant joy you carry now, and may you forever feel the boundless freedom of creating a world that is uniquely and beautifully yours.",
+      "imageUrl": null,
+      "createdAt": "2026-02-20T14:23:07.177Z",
+      "updatedAt": "2026-02-20T14:23:07.177Z"
+    },
+    {
+      "id": "YK_HOH-w9X1CX2H15mmDE",
+      "slug": "a60aC9Lz1R",
+      "creatorToken": "01hXh6ozq8U2HqkDTOGDAXMr9lY6a7kt",
+      "recipient": {
+        "name": "Hrishit",
+        "relationship": "Best Friend",
+        "age": "28"
+      },
+      "occasion": {
+        "label": "Just Because",
+        "date": "2026-02-20"
+      },
+      "narrative": {
+        "tone": "warm & heartfelt"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Hrishit",
+          "archetype": "",
+          "milestone": "Just Because",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Resilient",
+          "Playful",
+          "Steady",
+          "Brave"
+        ],
+        "behaviorExample": "",
+        "relationshipPerspective": {
+          "relationshipType": "Best Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "",
+          "chapterTone": ""
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "",
+          "sharedMemoryTone": "",
+          "whyTheyMatter": ""
+        },
+        "messageIntent": {
+          "primaryGoal": "celebrate",
+          "emotionalMix": [
+            "warm"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "modern-literary",
+          "metaphorDensity": "medium"
+        }
+      },
+      "theme": "midnight-bloom",
+      "prose": "There are moments when the world seems to pause, steeped in a quality of light that feels almost sacramental, much like the gentle alchemy of this golden hour unfolding over the sea. In such stillness, my thoughts drift, unbidden, to you. It is a “just because” feeling, really – a quiet observation of the magnificent way you are learning to chart your own reality, to draw forth your life from the wellspring of your truest self. To witness this particular chapter of yours, vibrant and luminous, is to feel a tender sort of awe, like watching a magnificent ship finally find its true wind. [github](https://github.com/login?client_id=Iv1.a68538aa23f421cc&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3DIv1.a68538aa23f421cc%26redirect_uri%3Dhttps%253A%252F%252Fstackblitz.com%252Fapi%252Fusers%252Fauth%252Fgithub_app%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Aemail%26state%3D66772979a549137a2e2b5928014c98732f415dd6c77f35ef)\n\nI remember, so distinctly, those early mornings that bled into sleepless nights, our shared whispers against the quiet hum of the world as we worked, building not just our future, but the very foundations of who we would become. It was then, amidst the quiet ambition, that I first truly understood the bedrock of your character – that formidable spirit, a supermassive crackhead readiness to stand, unwavering, for those you cherish. That same fierce, protective energy, I see now, is what empowers you to fight for your own vision too, carving out a space for your dreams with an admirable, almost palpable joy. [github](https://github.com/login?client_id=Iv1.a68538aa23f421cc&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3DIv1.a68538aa23f421cc%26redirect_uri%3Dhttps%253A%252F%252Fstackblitz.com%252Fapi%252Fusers%252Fauth%252Fgithub_app%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Aemail%26state%3D66772979a549137a2e2b5928014c98732f415dd6c77f35ef)\n\nTo watch you unfurl your own map now, not following pre-drawn lines but sketching new coastlines with such confidence and verve, is a profound gift. There is a beautiful, resonant hum to your days, a joyous momentum as you manifest, piece by precious piece, the life you are meant to live. It is a journey of quiet courage, this learning to trust the deep currents within you, to navigate by the stars of your own making, and the brightness of it feels as expansive and hopeful as the horizon stretching endlessly before us at dusk. [github](https://github.com/login?client_id=Iv1.a68538aa23f421cc&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3DIv1.a68538aa23f421cc%26redirect_uri%3Dhttps%253A%252F%252Fstackblitz.com%252Fapi%252Fusers%252Fauth%252Fgithub_app%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Aemail%26state%3D66772979a549137a2e2b5928014c98732f415dd6c77f35ef)\n\nAnd so, as the last light kisses the waves, leaving behind a sky pregnant with possibility, my wish for you is simple yet profound. May the winds always be kind to your sails, Hrishit, and may your compass forever point true, guided not by external clamor but by the unwavering heartbeat of your own magnificent spirit. May every unwritten chapter be imbued with the same vibrant joy you carry now, and may you forever feel the boundless freedom of creating a world that is uniquely and beautifully yours. [github](https://github.com/login?client_id=Iv1.a68538aa23f421cc&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3DIv1.a68538aa23f421cc%26redirect_uri%3Dhttps%253A%252F%252Fstackblitz.com%252Fapi%252Fusers%252Fauth%252Fgithub_app%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Aemail%26state%3D66772979a549137a2e2b5928014c98732f415dd6c77f35ef)",
+      "imageUrl": null,
+      "createdAt": "2026-02-20T14:41:37.576Z",
+      "updatedAt": "2026-02-20T14:41:37.576Z"
+    },
+    {
+      "id": "zGsC0J0bg7rU5RVhMCNzq",
+      "slug": "SCYQp4T_aY",
+      "creatorToken": "MEIScv-7a69yIC4zKv03W7INPCBsWuBi",
+      "recipient": {
+        "name": "Hrishit",
+        "relationship": "Best Friend",
+        "age": "28"
+      },
+      "occasion": {
+        "label": "Achievement",
+        "date": "2026-02-21"
+      },
+      "narrative": {
+        "tone": "reflective & poetic"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Hrishit",
+          "archetype": "",
+          "milestone": "Achievement",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Curious"
+        ],
+        "behaviorExample": "",
+        "relationshipPerspective": {
+          "relationshipType": "Best Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "Bracing the unknown and charting new futures",
+          "chapterTone": "reflective & poetic"
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "",
+          "sharedMemoryTone": "",
+          "whyTheyMatter": ""
+        },
+        "messageIntent": {
+          "primaryGoal": "reassure",
+          "emotionalMix": [
+            "warm",
+            "reverent"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "modern-literary",
+          "metaphorDensity": "medium"
+        }
+      },
+      "theme": "forest-dawn",
+      "prose": "There’s a quiet brilliance about this moment, Hrishit, like watching a star you’ve always known suddenly blaze with a deeper, more resonant light. It’s not merely the recognition of what you’ve achieved, but the profound echo of all that intricate, curious seeking within you that brought it into being. I’ve watched you, with a gentle persistence, trace the edges of unknowns, always asking the next thoughtful question, and to see this come to fruition feels less like a surprise and more like an inevitable unfolding, a natural consequence of the path your spirit has always carved.\n\nNow, as you stand at this new threshold, with the world stretching out before you like an unread manuscript, I can sense the familiar hum of anticipation that always accompanies your transitions. It’s a space many might call uncertain, a vastness ripe with the unknown, but for you, it has always been a field of nascent possibility. That same innate curiosity, the one that guided you through every discovery and gentle inquiry before, remains your truest compass. It whispers not of doubt, but of new horizons waiting to be understood, new depths yearning to be explored by your unique vision.\n\nRemember all the quiet currents you’ve navigated, the subtle shifts you’ve perceived in the world around you. You carry within you an entire library of insights, not just from what you’ve learned, but from how you’ve always *been* — observant, reflective, profoundly engaged with the unfolding mysteries of existence. There’s a certain, enduring strength in moving with such deliberate purpose, in finding clarity in reflection, and you possess it in abundance. This next chapter, whatever its shape or contour, will be colored by the singular lens through which you experience the world, always seeking, always learning.\n\nSo, as you chart these new futures, let your curious heart be the unwavering North Star. May the wind be kind to your sails, Hrishit, and may every uncharted wave reveal a deeper current of understanding. May the quiet joy of discovery always be your closest companion, and may you find, in every step into the unknown, a profound resonance with the beautiful, seeking spirit that already defines you. Go forth, my friend, and may your journey be as luminous and profound as the light you carry within.",
+      "imageUrl": null,
+      "animationUrl": null,
+      "motionEnabled": true,
+      "createdAt": "2026-02-20T14:58:50.669Z",
+      "updatedAt": "2026-02-20T14:58:50.669Z"
+    },
+    {
+      "id": "L10HeSs201BG6eLbKSz7s",
+      "slug": "cXYVZZvb7k",
+      "creatorToken": "n7bsky5nDJYuuHd0_9g7o0kJEHmrLHKR",
+      "recipient": {
+        "name": "Hri",
+        "relationship": "Best Friend",
+        "age": "28"
+      },
+      "occasion": {
+        "label": "Wedding",
+        "date": "2026-02-20"
+      },
+      "narrative": {
+        "tone": "warm & heartfelt"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Hri",
+          "archetype": "",
+          "milestone": "Wedding",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Kind",
+          "Playful"
+        ],
+        "behaviorExample": "",
+        "relationshipPerspective": {
+          "relationshipType": "Best Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "City lights at night",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "",
+          "chapterTone": ""
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "",
+          "sharedMemoryTone": "",
+          "whyTheyMatter": ""
+        },
+        "messageIntent": {
+          "primaryGoal": "celebrate",
+          "emotionalMix": [
+            "warm"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "modern-literary",
+          "metaphorDensity": "medium"
+        }
+      },
+      "theme": "golden-warmth",
+      "prose": "The quiet hum of the city, lit like a scattered constellation against the darkening canvas, feels like a fitting backdrop tonight for the quiet wonder that is your journey, Hri. I’ve watched you, with the gentle gaze only years of shared knowing can bring, grow into the remarkable person standing on this beautiful threshold. There’s always been a particular grace about you, a luminous thread woven through the everyday – not just in the easy, bright laughter that seems to chase away shadows, but in the steadfast, quiet kindness you offer without a second thought, often when no one else is looking.\n\nYour playfulness, that delightful spark in your eye, has always been an invitation to find joy in the smallest corners of the world, transforming ordinary moments into something vibrant and memorable. And your kindness, a deep well of empathy and understanding, has been a comfort and a steady presence in my own life, and no doubt, in the lives of countless others. It’s a rare and precious alchemy, this blend of lighthearted spirit and profound compassion, and it is the very essence of you, the truest part of your bright, unwavering self.\n\nTo see you embrace this new chapter, unfurling like a cherished story you were always meant to live, fills me with a profound and tender happiness. It’s not merely the grandeur of the occasion, but the pure, unadorned beauty of watching you step into a future built upon the very bedrock of who you inherently are. You carry with you not only the warmth of your own heart but the echo of all the shared whispers and unspoken understandings that have shaped the contours of our days.\n\nAnd so, my dearest Hri, as the city lights continue their silent dance outside, I offer this wish for you: may your life together be a tapestry woven with threads of deep contentment and boundless mirth, rich with the quiet comfort of home and vibrant with the adventurous spirit you both share. May your days unfold like a beloved melody, always finding harmony, always returning to the warmth of your shared, gentle kindness, and always, always punctuated by that inimitable, joyful sparkle that has always been so uniquely you.",
+      "imageUrl": null,
+      "animationUrl": null,
+      "createdAt": "2026-02-20T15:13:09.121Z",
+      "updatedAt": "2026-02-20T15:13:09.121Z"
     }
   ],
   "views": [
@@ -300,6 +580,61 @@
       "slug": "U51Tp8XMZD",
       "ipHash": "MTI3LjAuMC4x",
       "viewedAt": "2026-02-18T17:39:32.201Z"
+    },
+    {
+      "slug": "a60aC9Lz1R",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:42:02.687Z"
+    },
+    {
+      "slug": "a60aC9Lz1R",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:42:02.749Z"
+    },
+    {
+      "slug": "a60aC9Lz1R",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:48:53.973Z"
+    },
+    {
+      "slug": "a60aC9Lz1R",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:53:15.048Z"
+    },
+    {
+      "slug": "a60aC9Lz1R",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:53:15.394Z"
+    },
+    {
+      "slug": "SCYQp4T_aY",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:58:54.395Z"
+    },
+    {
+      "slug": "SCYQp4T_aY",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T14:58:54.426Z"
+    },
+    {
+      "slug": "SCYQp4T_aY",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T15:09:03.594Z"
+    },
+    {
+      "slug": "SCYQp4T_aY",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T15:09:03.616Z"
+    },
+    {
+      "slug": "cXYVZZvb7k",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T15:13:12.272Z"
+    },
+    {
+      "slug": "cXYVZZvb7k",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-20T15:13:12.320Z"
     }
   ]
 }
