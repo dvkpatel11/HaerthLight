@@ -38,7 +38,7 @@ export default function Farewell({ senderName = 'A friend', onShare, onReplay }:
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           With warmth,<br />
-          {senderName}
+          The Chronicle Keeper
         </motion.p>
 
         <motion.div

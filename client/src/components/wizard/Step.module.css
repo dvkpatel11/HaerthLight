@@ -205,6 +205,18 @@
 .themePreview {
   height: 80px;
   width: 100%;
+  position: relative;
+}
+
+.themeColorSwatch {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--ivory);
+  opacity: 0.8;
 }
 
 .themeMeta {

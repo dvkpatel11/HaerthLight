@@ -12,31 +12,36 @@ interface Props {
   onBack: () => void
 }
 
-const THEMES: { id: Theme; label: string; desc: string }[] = [
+const THEMES: { id: Theme; label: string; desc: string; color: string }[] = [
   {
     id: 'golden-warmth',
     label: 'Golden Warmth',
     desc: 'Amber hour, autumn light',
+    color: '#c9a84c',
   },
   {
     id: 'midnight-bloom',
     label: 'Midnight Bloom',
     desc: 'Moonlit garden, deep indigo',
+    color: '#a064d2',
   },
   {
     id: 'ocean-calm',
     label: 'Ocean Calm',
     desc: 'Teal dawn, still waters',
+    color: '#50b4c8',
   },
   {
     id: 'forest-dawn',
     label: 'Forest Dawn',
     desc: 'Ancient trees, morning mist',
+    color: '#64b450',
   },
   {
     id: 'celestial',
     label: 'Celestial',
     desc: 'Deep cosmos, rose nebula',
+    color: '#c882c8',
   },
 ]
 
@@ -94,12 +99,17 @@ export default function Step4Theme({ value, context, onChange, onContextChange, 
                 <div
                   className={styles.themePreview}
                   style={{
-                    backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.1)), url(${getThemeBackground(
+                    backgroundImage: `linear-gradient(135deg, ${theme.color}22 0%, ${theme.color}11 50%, rgba(0,0,0,0.3) 100%), url(${getThemeBackground(
                       theme.id,
                     )})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}
+                />
+                <div
+                  className={styles.themeColorSwatch}
+                  style={{ backgroundColor: theme.color }}
+                  aria-hidden
                 />
                 <div className={styles.themeMeta}>
                   <span className={styles.themeLabel}>{theme.label}</span>

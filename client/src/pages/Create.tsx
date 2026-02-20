@@ -79,11 +79,24 @@ const INITIAL_STATE: WizardState = {
 }
 
 export default function Create() {
+  const [authenticated, setAuthenticated] = useState(false)
+  const [authPassword, setAuthPassword] = useState('')
+  const [authError, setAuthError] = useState('')
   const [step, setStep] = useState(1)
   const [state, setState] = useState<WizardState>(INITIAL_STATE)
   const [generating, setGenerating] = useState(false)
   const [genError, setGenError] = useState('')
   const navigate = useNavigate()
+
+  function handleAuth() {
+    if (authPassword === 'Adminx11!') {
+      setAuthenticated(true)
+      setAuthError('')
+    } else {
+      setAuthError('Invalid credentials')
+      setAuthPassword('')
+    }
+  }
 
   const updateRecipient = useCallback((d: RecipientData) => {
     setState(s => ({
@@ -188,6 +201,36 @@ export default function Create() {
     } finally {
       setGenerating(false)
     }
+  }
+
+  if (!authenticated) {
+    return (
+      <div className={styles.root}>
+        <div className={styles.ambient} aria-hidden />
+        <div className={styles.layout}>
+          <button className={styles.homeLink} onClick={() => navigate('/')}>
+            ← Hearthlight
+          </button>
+          <div className={styles.authModal}>
+            <h2 className={styles.authTitle}>Access Required</h2>
+            <p className={styles.authDesc}>Enter credentials to create a chronicle</p>
+            <input
+              type="password"
+              placeholder="Password"
+              value={authPassword}
+              onChange={e => setAuthPassword(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleAuth()}
+              autoFocus
+              className={styles.authInput}
+            />
+            {authError && <p className={styles.authError}>{authError}</p>}
+            <button className={`btn btn-primary ${styles.authButton}`} onClick={handleAuth}>
+              Authenticate
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
