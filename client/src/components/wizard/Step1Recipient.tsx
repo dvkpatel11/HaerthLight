@@ -54,15 +54,6 @@ export default function Step1Recipient({
     recipient.relationship.length > 0 &&
     occasion.label.trim().length > 0
 
-  function toggleTrait(trait: string) {
-    const exists = (context.traits || []).includes(trait)
-    const nextTraits = exists ? context.traits.filter(t => t !== trait) : [...(context.traits || []), trait]
-    onContextChange({
-      ...context,
-      traits: nextTraits,
-    })
-  }
-
   function updateSubject<K extends keyof NarrativeContext['subject']>(key: K, value: NarrativeContext['subject'][K]) {
     onContextChange({
       ...context,
@@ -216,42 +207,6 @@ export default function Step1Recipient({
           </div>
         </div>
 
-        <div className={styles.fieldGroup}>
-          <h3 className={styles.sectionTitle}>A hint of who they are</h3>
-          <p className={styles.sectionHint}>You can say more later, but a few traits now help.</p>
-
-          <div className={styles.chipRow}>
-            {['Kind', 'Resilient', 'Curious', 'Playful', 'Steady', 'Brave', 'Gentle', 'Funny'].map(env => (
-              <button
-                key={env}
-                type="button"
-                className={`${styles.chip} ${
-                  (context.traits || []).includes(env) ? styles.chipActive : ''
-                }`}
-                onClick={() => toggleTrait(env)}
-              >
-                {env}
-              </button>
-            ))}
-          </div>
-
-          <div className={styles.field}>
-            <label className={styles.label}>
-              In your own words <span className={styles.optional}>(optional)</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Somehow always steady and gentle, even when everything is loud."
-              value={context.behaviorExample || ''}
-              onChange={e =>
-                onContextChange({
-                  ...context,
-                  behaviorExample: e.target.value,
-                })
-              }
-            />
-          </div>
-        </div>
       </div>
 
       <div className={styles.actions}>

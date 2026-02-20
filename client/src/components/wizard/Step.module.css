@@ -30,7 +30,37 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 48px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  margin: 0;
+}
+
+.sectionHint {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--ivory-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .field {
