@@ -96,7 +96,6 @@ export default function Step1Recipient({
       <div className={styles.fields}>
         <div className={styles.fieldGroup}>
           <h3 className={styles.sectionTitle}>Who is this for?</h3>
-          <p className={styles.sectionHint}>Just the basics are perfect here.</p>
 
           <div className={styles.field}>
             <label className={styles.label}>Their name</label>
