@@ -518,6 +518,79 @@
       "animationUrl": null,
       "createdAt": "2026-02-20T15:13:09.121Z",
       "updatedAt": "2026-02-20T15:13:09.121Z"
+    },
+    {
+      "id": "eYU8c5OI0It0nB4dB0TYE",
+      "slug": "eOc56E5lxc",
+      "creatorToken": "rP89QmBG6j-Eqg9I5EsB_8brkGoH0jYV",
+      "recipient": {
+        "name": "Hrishit",
+        "relationship": "Best Friend",
+        "age": "28"
+      },
+      "occasion": {
+        "label": "Recovery",
+        "date": "2026-02-21"
+      },
+      "narrative": {
+        "tone": "tender & intimate",
+        "sharedMemory": "A near fail on a circuits exam that we relentlessly studied for overnight\n"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Hrishit",
+          "archetype": "",
+          "milestone": "Recovery",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Resilient",
+          "Playful",
+          "Brave"
+        ],
+        "behaviorExample": "Can be sassy like a barbie",
+        "relationshipPerspective": {
+          "relationshipType": "Best Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "Forest path at dawn",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "Bracing the unknown while charting new futures with relentless optimism and critical thought",
+          "chapterTone": "tender & intimate"
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "Can be aloof",
+          "sharedMemoryTone": "A near fail on a circuits exam that we relentlessly studied for overnight\n",
+          "whyTheyMatter": ""
+        },
+        "messageIntent": {
+          "primaryGoal": "reassure",
+          "emotionalMix": [
+            "bittersweet",
+            "reverent"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "light-humor",
+          "metaphorDensity": "rich"
+        }
+      },
+      "theme": "forest-dawn",
+      "prose": "As the first timid light of dawn paints the forest path, tracing silver on dew-kissed leaves, I find myself lingering on thoughts of you, Hrishit. This quiet, hopeful unfurling of the day feels like an echo of the gentle, arduous light you've been stepping into, having navigated your own shadowed journey of recovery. There's a bittersweet reverence in witnessing this tender, intimate chapter of yours, where the past recedes like mist, and the horizon shimmers with what’s next.\n\nYou’ve always possessed this extraordinary blend of relentless optimism and sharp, critical thought, a unique compass that now guides you as you brace the unknown and chart new futures. I see it in the way you approach life's Gordian knots — with the thoughtful patience of an architect, yet capable of a decisive, witty cut that would make even a Barbie doll pause mid-sashay. It's a delightful, formidable combination, born from a resilience I've long admired, a spirit that simply refuses to be dulled.\n\nIt brings to mind that infamous circuits exam, doesn't it? That overnight siege of caffeine and Kirchhoff’s laws, our brains feeling more like tangled wires than functioning organs. Remember the pure, unadulterated panic, the near-fail that felt like an existential threat, and then that triumphant, slightly delirious giggle when we somehow, miraculously, navigated the current? That moment, so fraught yet so infused with our shared, playful bravery, speaks volumes to the mettle beneath the surface – the kind that now serves you as you bravely step forward into less predictable terrains.\n\nThere’s a quiet strength in your current posture, a graceful readiness to engage with whatever lies ahead, not with blind faith, but with an open heart and a discerning eye. You’re not just surviving, Hrishit; you’re crafting a new narrative, a testament to that bright, indomitable core of yours. And as I watch you from this gentle distance, I feel nothing but profound care and admiration for the beautiful, intricate person you are.\n\nSo, may your path ahead be illuminated by the dawn's unwavering promise, Hrishit. May the bravery that has always propelled you be a steadfast flame, and may your playful spirit find endless moments of joy and irreverence amidst the serious work of building. May your keen mind continue to find elegant solutions in the labyrinth, and may your heart remain the truest north star, guiding you toward a future as rich and nuanced as the extraordinary soul you already possess.",
+      "imageUrl": null,
+      "animationUrl": null,
+      "createdAt": "2026-02-21T17:34:14.598Z",
+      "updatedAt": "2026-02-21T17:34:14.598Z"
     }
   ],
   "views": [
@@ -635,6 +708,16 @@
       "slug": "cXYVZZvb7k",
       "ipHash": "OjpmZmZmOjEyNy4w",
       "viewedAt": "2026-02-20T15:13:12.320Z"
+    },
+    {
+      "slug": "eOc56E5lxc",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-21T17:34:29.979Z"
+    },
+    {
+      "slug": "eOc56E5lxc",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-21T17:34:30.108Z"
     }
   ]
 }
