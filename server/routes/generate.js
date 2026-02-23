@@ -239,6 +239,8 @@ function buildProsePrompt(body) {
     .filter(Boolean)
     .join("\n");
 
+  const additionalNotes = narrative.notes ? `Additional context from user: ${narrative.notes}` : "";
+
   return `You are an elegant literary author crafting a deeply personal, heartfelt message.
 
 Write a beautifully composed personal message for the following person and moment. The writing should feel warm, intimate, and genuinely meaningful - not generic.
@@ -272,6 +274,8 @@ Future orientation: ${futureOrientation || "Offer a blessing for the chapters ah
 === Style layer ===
 Literary style: ${literaryStyle}
 Metaphor density: ${metaphorDensity}
+
+${additionalNotes ? `=== User Notes ===\n${additionalNotes}` : ""}
 
 === Additional guidance ===
 - Prioritize emotional specificity over plot detail.
