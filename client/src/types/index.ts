@@ -5,6 +5,8 @@ export type Theme =
   | 'forest-dawn'
   | 'celestial';
 
+export type Language = 'English' | 'Hindi' | 'Gujarati' | 'Bengali' | 'Swahili';
+
 export type Tone =
   | 'warm & heartfelt'
   | 'playful & light'
@@ -125,6 +127,7 @@ export interface WizardState {
   narrative: NarrativeData;
   narrativeContext: NarrativeContext;
   theme: Theme;
+  language: Language;
   prose: string;
   imageUrl?: string;
   animationUrl?: string;
@@ -138,6 +141,7 @@ export interface Chronicle {
   narrative: NarrativeData;
   narrativeContext?: NarrativeContext;
   theme: Theme;
+  language: Language;
   prose: string;
   imageUrl?: string;
   animationUrl?: string;

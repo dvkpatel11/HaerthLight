@@ -140,7 +140,7 @@ const THEMES = {
 };
 
 function buildProsePrompt(body) {
-  const { recipient = {}, occasion = {}, narrative = {}, narrativeContext } = body || {};
+  const { recipient = {}, occasion = {}, narrative = {}, narrativeContext, language = 'English' } = body || {};
 
   const ctx = narrativeContext || {};
 
@@ -241,9 +241,11 @@ function buildProsePrompt(body) {
 
   const additionalNotes = narrative.notes ? `Additional context from user: ${narrative.notes}` : "";
 
-  return `You are an elegant literary author crafting a deeply personal, heartfelt message.
+  return `You are an elegant literary author crafting a deeply personal, heartfelt message in ${language}.
 
-Write a beautifully composed personal message for the following person and moment. The writing should feel warm, intimate, and genuinely meaningful - not generic.
+Write a beautifully composed personal message for the following person and moment in ${language}. The writing should feel warm, intimate, and genuinely meaningful - not generic.
+
+IMPORTANT: You MUST write the entire prose body in ${language}. Do not provide an English translation unless specifically requested in the user notes. Use the natural idioms, cultural nuances, and polite forms of address appropriate for ${language}.
 
 === Subject identity ===
 Recipient display name: ${displayName}
