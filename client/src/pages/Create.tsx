@@ -7,6 +7,7 @@ import type {
   OccasionData,
   NarrativeData,
   Theme,
+  Language,
   NarrativeContext,
   MessageGoal,
   EmotionalColor,
@@ -74,6 +75,7 @@ const INITIAL_STATE: WizardState = {
   narrative: { tone: 'warm & heartfelt' },
   narrativeContext: INITIAL_CONTEXT,
   theme: 'golden-warmth',
+  language: 'English',
   prose: '',
   imageUrl: undefined,
   animationUrl: undefined,
@@ -157,6 +159,7 @@ export default function Create() {
     }))
   }, [])
   const updateTheme = useCallback((t: Theme) => setState(s => ({ ...s, theme: t })), [])
+  const updateLanguage = useCallback((l: Language) => setState(s => ({ ...s, language: l })), [])
   const updateProse = useCallback((prose: string) => setState(s => ({ ...s, prose })), [])
 
   async function generate() {
@@ -171,6 +174,7 @@ export default function Create() {
         narrative: state.narrative,
         narrativeContext: state.narrativeContext,
         theme: state.theme,
+        language: state.language,
       }
 
       const [prose, imageUrl, animationUrl] = await Promise.all([
@@ -179,11 +183,15 @@ export default function Create() {
         generateAnimation(payload).catch(() => undefined), // animation is optional
       ])
 
+      // Generate audio after prose is ready
+      const audioUrl = await generateAudio({ prose, language: payload.language }).catch(() => undefined)
+
       setState(s => ({
         ...s,
         prose,
         imageUrl,
         animationUrl,
+        audioUrl,
       }))
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err))
@@ -203,6 +211,7 @@ export default function Create() {
         narrative: state.narrative,
         narrativeContext: state.narrativeContext,
         theme: state.theme,
+        language: state.language,
       })
       setState(s => ({ ...s, prose }))
     } catch (err) {
@@ -300,8 +309,10 @@ export default function Create() {
               <Step4Theme
                 key="s4"
                 value={state.theme}
+                language={state.language}
                 context={state.narrativeContext}
                 onChange={updateTheme}
+                onLanguageChange={updateLanguage}
                 onContextChange={updateNarrativeContext}
                 onNext={generate}
                 onBack={() => setStep(3)}

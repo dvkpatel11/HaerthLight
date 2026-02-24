@@ -33,7 +33,7 @@ export async function generateImage(
 }
 
 export async function generateAnimation(
-  state: Omit<WizardState, 'prose' | 'imageUrl' | 'animationUrl'>
+  state: Omit<WizardState, 'prose' | 'imageUrl' | 'animationUrl' | 'audioUrl'>
 ): Promise<string> {
   const res = await fetch(`${BASE}/generate/animation`, {
     method: 'POST',
@@ -46,6 +46,20 @@ export async function generateAnimation(
   }
   const { animationUrl } = await res.json();
   return animationUrl;
+}
+
+export async function generateAudio(data: { prose: string; language: string }): Promise<string> {
+  const res = await fetch(`${BASE}/generate/audio`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Audio generation failed');
+  }
+  const { audioUrl } = await res.json();
+  return audioUrl;
 }
 
 export async function saveChronicle(

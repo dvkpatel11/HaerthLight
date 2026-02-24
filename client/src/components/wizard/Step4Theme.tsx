@@ -1,16 +1,20 @@
 import { motion } from 'framer-motion'
-import type { Theme, NarrativeContext } from '../../types'
+import type { Theme, Language, NarrativeContext } from '../../types'
 import { getThemeBackground } from '../../lib/themeAssets'
 import styles from './Step.module.css'
 
 interface Props {
   value: Theme
+  language: Language
   context: NarrativeContext
   onChange: (t: Theme) => void
+  onLanguageChange: (l: Language) => void
   onContextChange: (ctx: NarrativeContext) => void
   onNext: () => void
   onBack: () => void
 }
+
+const LANGUAGES: Language[] = ['English', 'Hindi', 'Gujarati', 'Bengali', 'Swahili']
 
 const THEMES: { id: Theme; label: string; desc: string; color: string }[] = [
   {
@@ -54,7 +58,7 @@ const ENVIRONMENT_PRESETS = [
 
 const SYMBOLIC_STYLES = ['Mythic realm', 'Coastal town', 'Modern city', 'Pastoral landscape']
 
-export default function Step4Theme({ value, context, onChange, onContextChange, onNext, onBack }: Props) {
+export default function Step4Theme({ value, language, context, onChange, onLanguageChange, onContextChange, onNext, onBack }: Props) {
   function updateSettingMood<K extends keyof NarrativeContext['settingMood']>(
     key: K,
     val: NarrativeContext['settingMood'][K],
@@ -84,6 +88,23 @@ export default function Step4Theme({ value, context, onChange, onContextChange, 
       </div>
 
       <div className={styles.fields}>
+        <div className={styles.fieldGroup}>
+          <h3 className={styles.sectionTitle}>Language</h3>
+          <p className={styles.sectionHint}>Choose the language for your chronicle.</p>
+          <div className={styles.occasionGrid}>
+            {LANGUAGES.map(lang => (
+              <button
+                key={lang}
+                type="button"
+                className={`${styles.chip} ${language === lang ? styles.chipActive : ''}`}
+                onClick={() => onLanguageChange(lang)}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.fieldGroup}>
           <h3 className={styles.sectionTitle}>Theme</h3>
           <p className={styles.sectionHint}>This controls the overall color palette and artwork.</p>
