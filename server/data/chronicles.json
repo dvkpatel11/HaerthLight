@@ -591,6 +591,79 @@
       "animationUrl": null,
       "createdAt": "2026-02-21T17:34:14.598Z",
       "updatedAt": "2026-02-21T17:34:14.598Z"
+    },
+    {
+      "id": "vYe7xMn_D3ZdMKjYcBIVH",
+      "slug": "GDuUgzTG1d",
+      "creatorToken": "kftNEWy9ytxeRsWTAmWS8xdYtg6bW1Cu",
+      "recipient": {
+        "name": "Tiyo",
+        "relationship": "Friend",
+        "age": "25"
+      },
+      "occasion": {
+        "label": "Monthversary",
+        "date": "2026-02-23"
+      },
+      "narrative": {
+        "tone": "reflective & poetic",
+        "sharedMemory": "Shared love for Scottish farmlife \n"
+      },
+      "narrativeContext": {
+        "subject": {
+          "displayName": "Tiyo",
+          "archetype": "",
+          "milestone": "Monthversary",
+          "lifePhase": ""
+        },
+        "traits": [
+          "Kind",
+          "Playful",
+          "Curious"
+        ],
+        "behaviorExample": "Goofy raccoon who is my number 1 fan",
+        "relationshipPerspective": {
+          "relationshipType": "Friend",
+          "narratorPersona": "",
+          "emotionalStance": ""
+        },
+        "settingMood": {
+          "environmentMood": "Seaside at golden hour",
+          "symbolicStyle": "",
+          "emotionalAtmosphere": ""
+        },
+        "lifeContext": {
+          "recentChallenges": "",
+          "transitionMoment": "They are learning to brave uncertainly as they chart forward to their next opportunity",
+          "chapterTone": "reflective & poetic"
+        },
+        "connectionSignal": {
+          "behaviorOrDynamic": "",
+          "sharedMemoryTone": "Shared love for Scottish farmlife \n",
+          "whyTheyMatter": "Always makes time to be there for me despite the geographic distance"
+        },
+        "messageIntent": {
+          "primaryGoal": "encourage",
+          "emotionalMix": [
+            "warm",
+            "bittersweet"
+          ]
+        },
+        "closingStyle": {
+          "wishIntensity": "poetic",
+          "futureOrientation": ""
+        },
+        "styleLayer": {
+          "literaryStyle": "poetic",
+          "metaphorDensity": "medium"
+        }
+      },
+      "theme": "golden-warmth",
+      "prose": "As the quiet rhythm of another month finds its close, and the light outside softens to that familiar golden hour glow by the sea, my thoughts drift to you, Tiyo. I imagine you standing at a similar edge, the vast, shimmering expanse of the unknown stretching out before you, much like the ocean at dusk – beautiful, yet full of its own deep currents. It is a reflective space, I know, as you chart your course toward what’s next, leaning into the brave uncertainty of it all.\n\nIt has always touched me deeply, the way you make time and space, bridging the miles between us with such effortless grace. Your kindness, a quiet steadfast beacon, shines through even the most everyday moments, and your inherent curiosity, that same spirit that kindles our shared whispers of Scottish farmlife and woolly Highland coos, is now your compass. And even as you stand at this reflective threshold, I can almost sense that familiar, playful glint, the one that makes me think of my most dedicated, if slightly goofy, raccoon fan, always there with an encouraging wink.\n\nBut you, my dear friend, have always possessed a singular courage, a way of meeting the world with an open heart and a willingness to explore. This chapter, while perhaps tinged with the bittersweet thrill of what awaits, is truly a testament to your quiet strength. You have always been one to look beyond the immediate horizon, and I have no doubt that your journey forward will be rich with discovery, painted in hues only your unique perspective can truly appreciate.\n\nMay this brave new path unfold like the most exquisite poetry, Tiyo. May the sun never fully set on your wonder, illuminating every step with the unwavering warmth of your kind heart, the boundless energy of your curiosity, and the delightful sparkle of your playfulness. And as you navigate these waters, may you find treasures in the unexpected depths, knowing the light you carry within is more than enough to chart a truly remarkable course.",
+      "imageUrl": null,
+      "animationUrl": null,
+      "createdAt": "2026-02-23T16:10:14.861Z",
+      "updatedAt": "2026-02-23T16:10:14.861Z"
     }
   ],
   "views": [
@@ -718,6 +791,46 @@
       "slug": "eOc56E5lxc",
       "ipHash": "OjpmZmZmOjEyNy4w",
       "viewedAt": "2026-02-21T17:34:30.108Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "MTAyLjAuMTguMTgw",
+      "viewedAt": "2026-02-23T16:16:27.748Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "MTAyLjAuMTguMTgw",
+      "viewedAt": "2026-02-23T16:16:28.010Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "MjYwNzpmZWE4OmUx",
+      "viewedAt": "2026-02-23T17:19:50.305Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "NDEuMTM5LjE5Ni4x",
+      "viewedAt": "2026-02-23T18:41:53.803Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "NDEuMTM5LjE5Ni4x",
+      "viewedAt": "2026-02-23T18:52:09.506Z"
+    },
+    {
+      "slug": "GDuUgzTG1d",
+      "ipHash": "NDEuMTM5LjE5Ni4x",
+      "viewedAt": "2026-02-23T18:52:09.715Z"
+    },
+    {
+      "slug": "cXYVZZvb7k",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-24T22:35:41.282Z"
+    },
+    {
+      "slug": "cXYVZZvb7k",
+      "ipHash": "OjpmZmZmOjEyNy4w",
+      "viewedAt": "2026-02-24T22:35:41.309Z"
     }
   ]
 }
