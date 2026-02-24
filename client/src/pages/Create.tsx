@@ -183,11 +183,15 @@ export default function Create() {
         generateAnimation(payload).catch(() => undefined), // animation is optional
       ])
 
+      // Generate audio after prose is ready
+      const audioUrl = await generateAudio({ prose, language: payload.language }).catch(() => undefined)
+
       setState(s => ({
         ...s,
         prose,
         imageUrl,
         animationUrl,
+        audioUrl,
       }))
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err))

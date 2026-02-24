@@ -105,7 +105,39 @@
 //   }
 // });
 
-// export { THEMES };
+// // Generate audio narration via Replicate (e.g., using a text-to-speech model)
+generateRouter.post("/audio", async (req, res) => {
+  try {
+    const apiKey = process.env.REPLICATE_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: "REPLICATE_API_KEY not configured" });
+
+    const { prose, language } = req.body;
+    
+    // xtts-v2 supports many languages including those requested
+    const replicate = (await import('replicate')).default;
+    const client = new replicate({ auth: apiKey });
+
+    const output = await client.run(
+      "lucataco/xtts-v2:684c4b32f9a2637ad93c9515117f997d1aa1b8ab233ce976007e6aa410715795",
+      {
+        input: {
+          text: prose,
+          speaker: "https://replicate.delivery/pbxt/Jt79D0V1ZH9sogzreP8T38YtY9r2v3v9tY9v9v9tY9v9v9tY/female.wav",
+          language: language.toLowerCase() === 'english' ? 'en' : 
+                    language.toLowerCase() === 'hindi' ? 'hi' :
+                    language.toLowerCase() === 'bengali' ? 'bn' : 'en' // fallback
+        }
+      }
+    );
+
+    res.json({ audioUrl: output });
+  } catch (err) {
+    console.error("Audio generation error:", err);
+    res.status(500).json({ error: "Audio generation failed", detail: err.message });
+  }
+});
+
+export { THEMES };
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from "express";
 
@@ -608,6 +640,38 @@ generateRouter.post("/animation", async (req, res) => {
         error: "Animation generation failed",
         detail: err instanceof Error ? err.message : String(err),
       });
+  }
+});
+
+// Generate audio narration via Replicate (e.g., using a text-to-speech model)
+generateRouter.post("/audio", async (req, res) => {
+  try {
+    const apiKey = process.env.REPLICATE_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: "REPLICATE_API_KEY not configured" });
+
+    const { prose, language } = req.body;
+    
+    // xtts-v2 supports many languages including those requested
+    const replicate = (await import('replicate')).default;
+    const client = new replicate({ auth: apiKey });
+
+    const output = await client.run(
+      "lucataco/xtts-v2:684c4b32f9a2637ad93c9515117f997d1aa1b8ab233ce976007e6aa410715795",
+      {
+        input: {
+          text: prose,
+          speaker: "https://replicate.delivery/pbxt/Jt79D0V1ZH9sogzreP8T38YtY9r2v3v9tY9v9v9tY9v9v9tY/female.wav",
+          language: language.toLowerCase() === 'english' ? 'en' : 
+                    language.toLowerCase() === 'hindi' ? 'hi' :
+                    language.toLowerCase() === 'bengali' ? 'bn' : 'en' // fallback
+        }
+      }
+    );
+
+    res.json({ audioUrl: output });
+  } catch (err) {
+    console.error("Audio generation error:", err);
+    res.status(500).json({ error: "Audio generation failed", detail: err.message });
   }
 });
 

@@ -131,6 +131,7 @@ export interface WizardState {
   prose: string;
   imageUrl?: string;
   animationUrl?: string;
+  audioUrl?: string;
 }
 
 export interface Chronicle {
@@ -145,5 +146,6 @@ export interface Chronicle {
   prose: string;
   imageUrl?: string;
   animationUrl?: string;
+  audioUrl?: string;
   createdAt: string;
 }

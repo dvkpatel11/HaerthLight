@@ -110,6 +110,10 @@ export default function Chronicle() {
       {/* Background layers */}
       <FloatingParticles count={25} color={particleColor} />
 
+      {chronicle.audioUrl && (
+        <audio src={chronicle.audioUrl} autoPlay loop style={{ display: 'none' }} />
+      )}
+
       <div className={styles.heroWrap} ref={heroRef}>
         {showAnimation ? (
           <video
