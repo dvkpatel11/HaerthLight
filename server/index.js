@@ -18,6 +18,7 @@ app.use(express.json());
 
 app.use('/api/chronicles', chroniclesRouter);
 app.use('/api/generate', generateRouter);
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/health', (_, res) => res.json({ ok: true }));
 

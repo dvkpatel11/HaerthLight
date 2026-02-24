@@ -105,43 +105,27 @@
 //   }
 // });
 
-// // Generate audio narration via Replicate (e.g., using a text-to-speech model)
-generateRouter.post("/audio", async (req, res) => {
-  try {
-    const apiKey = process.env.REPLICATE_API_KEY;
-    if (!apiKey) return res.status(500).json({ error: "REPLICATE_API_KEY not configured" });
-
-    const { prose, language } = req.body;
-    
-    // xtts-v2 supports many languages including those requested
-    const replicate = (await import('replicate')).default;
-    const client = new replicate({ auth: apiKey });
-
-    const output = await client.run(
-      "lucataco/xtts-v2:684c4b32f9a2637ad93c9515117f997d1aa1b8ab233ce976007e6aa410715795",
-      {
-        input: {
-          text: prose,
-          speaker: "https://replicate.delivery/pbxt/Jt79D0V1ZH9sogzreP8T38YtY9r2v3v9tY9v9v9tY9v9v9tY/female.wav",
-          language: language.toLowerCase() === 'english' ? 'en' : 
-                    language.toLowerCase() === 'hindi' ? 'hi' :
-                    language.toLowerCase() === 'bengali' ? 'bn' : 'en' // fallback
-        }
-      }
-    );
-
-    res.json({ audioUrl: output });
-  } catch (err) {
-    console.error("Audio generation error:", err);
-    res.status(500).json({ error: "Audio generation failed", detail: err.message });
-  }
-});
-
-export { THEMES };
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from "express";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const generateRouter = express.Router();
+
+async function getRandomAsset(dir) {
+  try {
+    const fullPath = path.join(__dirname, '..', 'assets', dir);
+    const files = await fs.readdir(fullPath);
+    const validFiles = files.filter(f => !f.startsWith('.'));
+    if (validFiles.length === 0) return null;
+    const randomFile = validFiles[Math.floor(Math.random() * validFiles.length)];
+    return `/assets/${dir}/${randomFile}`;
+  } catch (e) {
+    return null;
+  }
+}
 
 const THEMES = {
   "golden-warmth": {
@@ -344,12 +328,16 @@ generateRouter.post("/prose", async (req, res) => {
 });
 
 async function generateThemeImage(body) {
+  const { theme } = body || {};
+  const localImage = await getRandomAsset(`images/${theme || 'golden-warmth'}`);
+  if (localImage) return localImage;
+
   const apiKey = process.env.REPLICATE_API_KEY;
   if (!apiKey) {
-    throw new Error("REPLICATE_API_KEY not configured");
+    throw new Error("REPLICATE_API_KEY not configured and no local assets found");
   }
 
-  const { theme, recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
+  const { recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
     body || {};
 
   const themeConfig = THEMES[theme] || THEMES["golden-warmth"];
@@ -417,8 +405,6 @@ async function generateThemeImage(body) {
 
   let prediction = await createRes.json();
 
-  // Poll until the prediction is finished
-  // Limit total wait to avoid hanging indefinitely
   const maxAttempts = 20;
   const pollIntervalMs = 1500;
 
@@ -470,17 +456,18 @@ async function generateThemeImage(body) {
 }
 
 async function generateThemeAnimation(body) {
+  const { theme } = body || {};
+  const localAnim = await getRandomAsset(`images/${theme || 'golden-warmth'}`);
+  if (localAnim && (localAnim.endsWith('.mp4') || localAnim.endsWith('.webm'))) return localAnim;
+
   const apiKey = process.env.REPLICATE_API_KEY;
   const videoVersion = process.env.REPLICATE_VIDEO_VERSION;
 
-  if (!apiKey) {
-    throw new Error("REPLICATE_API_KEY not configured");
-  }
-  if (!videoVersion) {
-    throw new Error("REPLICATE_VIDEO_VERSION not configured");
+  if (!apiKey || !videoVersion) {
+    return null;
   }
 
-  const { theme, recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
+  const { recipient = {}, occasion = {}, narrative = {}, narrativeContext = {} } =
     body || {};
 
   const themeConfig = THEMES[theme] || THEMES["golden-warmth"];
@@ -590,68 +577,38 @@ async function generateThemeAnimation(body) {
   return animationUrl;
 }
 
-// Generate themed background image via external OSS model (Replicate SDXL)
 generateRouter.post("/image", async (req, res) => {
   try {
     const imageUrl = await generateThemeImage(req.body);
     res.json({ imageUrl });
   } catch (err) {
     console.error("Image generation error:", err);
-
-    if (err instanceof Error && /REPLICATE_API_KEY not configured/i.test(err.message)) {
-      return res
-        .status(500)
-        .json({ error: "Image generation not configured (REPLICATE_API_KEY missing)" });
-    }
-
-    return res
-      .status(500)
-      .json({
-        error: "Image generation failed",
-        detail: err instanceof Error ? err.message : String(err),
-      });
+    res.status(500).json({ error: "Image generation failed", detail: err.message });
   }
 });
 
-// Generate short looping animation via external OSS video model on Replicate
 generateRouter.post("/animation", async (req, res) => {
   try {
     const animationUrl = await generateThemeAnimation(req.body);
     res.json({ animationUrl });
   } catch (err) {
     console.error("Animation generation error:", err);
-
-    if (err instanceof Error) {
-      if (/REPLICATE_API_KEY not configured/i.test(err.message)) {
-        return res
-          .status(500)
-          .json({ error: "Animation generation not configured (REPLICATE_API_KEY missing)" });
-      }
-      if (/REPLICATE_VIDEO_VERSION not configured/i.test(err.message)) {
-        return res
-          .status(500)
-          .json({ error: "Animation generation not configured (REPLICATE_VIDEO_VERSION missing)" });
-      }
-    }
-
-    return res
-      .status(500)
-      .json({
-        error: "Animation generation failed",
-        detail: err instanceof Error ? err.message : String(err),
-      });
+    res.status(500).json({ error: "Animation generation failed", detail: err.message });
   }
 });
 
-// Generate audio narration via Replicate (e.g., using a text-to-speech model)
 generateRouter.post("/audio", async (req, res) => {
   try {
-    const apiKey = process.env.REPLICATE_API_KEY;
-    if (!apiKey) return res.status(500).json({ error: "REPLICATE_API_KEY not configured" });
+    const { language = 'English' } = req.body;
+    const langCode = language.toLowerCase() === 'hindi' ? 'hi' : 
+                     language.toLowerCase() === 'bengali' ? 'bn' : 'en';
+    const localAudio = await getRandomAsset(`audio/${langCode}`);
+    if (localAudio) return res.json({ audioUrl: localAudio });
 
-    const { prose, language } = req.body;
-    
-    // xtts-v2 supports many languages including those requested
+    const apiKey = process.env.REPLICATE_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: "REPLICATE_API_KEY not configured and no local assets found" });
+
+    const { prose } = req.body;
     const replicate = (await import('replicate')).default;
     const client = new replicate({ auth: apiKey });
 
@@ -661,9 +618,7 @@ generateRouter.post("/audio", async (req, res) => {
         input: {
           text: prose,
           speaker: "https://replicate.delivery/pbxt/Jt79D0V1ZH9sogzreP8T38YtY9r2v3v9tY9v9v9tY9v9v9tY/female.wav",
-          language: language.toLowerCase() === 'english' ? 'en' : 
-                    language.toLowerCase() === 'hindi' ? 'hi' :
-                    language.toLowerCase() === 'bengali' ? 'bn' : 'en' // fallback
+          language: langCode
         }
       }
     );
