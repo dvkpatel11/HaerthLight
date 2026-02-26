@@ -33,7 +33,8 @@ export type LiteraryStyle =
   | 'minimalist'
   | 'poetic'
   | 'light-humor'
-  | 'epic-chronicle';
+  | 'epic-chronicle'
+  | 'conversational';
 
 export type MetaphorDensity =
   | 'low'

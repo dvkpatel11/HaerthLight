@@ -133,10 +133,10 @@ export default function Step5Preview({
 
           <div className={previewStyles.toolbar}>
           <button className="btn btn-ghost" onClick={() => setEditing(!editing)}>
-            {editing ? '✓ Done' : '✎ Edit'}
+            {editing ? '✓ Done' : '✏ Edit text'}
           </button>
             <button className="btn btn-ghost" onClick={onRegenerate} disabled={generating}>
-              ↻ Refresh
+              ↺ Regenerate
             </button>
           </div>
         </>

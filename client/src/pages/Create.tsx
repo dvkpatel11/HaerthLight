@@ -277,9 +277,11 @@ export default function Create() {
                 recipient={state.recipient}
                 occasion={state.occasion}
                 context={state.narrativeContext}
+                language={state.language}
                 onRecipientChange={updateRecipient}
                 onOccasionChange={updateOccasion}
                 onContextChange={updateNarrativeContext}
+                onLanguageChange={updateLanguage}
                 onNext={() => setStep(2)}
               />
             )}
@@ -309,10 +311,8 @@ export default function Create() {
               <Step4Theme
                 key="s4"
                 value={state.theme}
-                language={state.language}
                 context={state.narrativeContext}
                 onChange={updateTheme}
-                onLanguageChange={updateLanguage}
                 onContextChange={updateNarrativeContext}
                 onNext={generate}
                 onBack={() => setStep(3)}

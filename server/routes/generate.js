@@ -257,6 +257,33 @@ function buildProsePrompt(body) {
 
   const additionalNotes = narrative.notes ? `Additional context from user: ${narrative.notes}` : "";
 
+  const ageInstruction = recipient.age
+    ? `Recipient age: ${recipient.age}. Calibrate reading level, emotional pitch, and vocabulary accordingly.`
+    : '';
+
+  const tonePermission = (narrative.tone === 'playful & light' || narrative.tone === 'celebratory & joyful')
+    ? `Tone permission: light wordplay, gentle humour, and an energetic cadence are welcome here. Do not default to literary solemnity. Let the prose smile.`
+    : '';
+
+  const styleOverride = styleLayer.literaryStyle === 'conversational'
+    ? `Style override: write as a warm, articulate friend would speak — natural contractions, simple vocabulary, short sentences are fine. Avoid ornate metaphors and literary distance.`
+    : '';
+
+  const professionalNote = ['Colleague', 'Mentor'].includes(relationshipType)
+    ? `Relationship note: maintain professional warmth. Genuine but not overly intimate.`
+    : '';
+
+  const sensitiveOccasionNote = (() => {
+    const lbl = (occasion.label || '').toLowerCase();
+    return lbl.includes('sympathy') || lbl.includes('loss')
+      ? `Sensitive occasion: Do NOT use silver-lining framing, toxic positivity, or future-oriented wish language. Honour the weight of the moment. Be present, gentle, and honest.`
+      : '';
+  })();
+
+  const specialInstructions = [ageInstruction, tonePermission, styleOverride, professionalNote, sensitiveOccasionNote]
+    .filter(Boolean)
+    .join('\n');
+
   return `You are an elegant literary author crafting a deeply personal, heartfelt message in ${language}.
 
 Write a beautifully composed personal message for the following person and moment in ${language}. The writing should feel warm, intimate, and genuinely meaningful - not generic.
@@ -295,15 +322,17 @@ Metaphor density: ${metaphorDensity}
 
 ${additionalNotes ? `=== User Notes ===\n${additionalNotes}` : ""}
 
+${specialInstructions ? `=== Special instructions ===\n${specialInstructions}` : ""}
+
 === Additional guidance ===
 - Prioritize emotional specificity over plot detail.
 - You may gently infer connective tissue between details, but do not invent elaborate fictional events.
-- Weave in any mentioned traits or moments so they feel discovered inside the prose rather than listed.
+- Weave in any specific details, traits, or memories so they feel discovered inside the prose, not listed.
 - Write 3-5 paragraphs of continuous prose. No titles or section headers.
-- Do not use clichés or generic celebration phrases.
+- Avoid greeting-card clichés. If a line could appear on any card for any person, rewrite it.
 - The final paragraph should feel like a genuine, specific wish for their future in this chapter.
 - Style: ${literaryStyle}, unhurried and humane.
-- Write in second person (you / your).
+- Write in second person (you / your) — unless the language selected has a more natural equivalent (e.g., use the appropriate honorific form in Hindi or Bengali).
 - Do not include a salutation or sign-off — only the body of the message.`;
 }
 

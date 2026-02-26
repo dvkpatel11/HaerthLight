@@ -28,15 +28,24 @@ const TONES: { value: Tone; label: string; desc: string }[] = [
 ]
 
 const GOALS: MessageGoal[] = ['celebrate', 'encourage', 'honor', 'reflect', 'reassure']
-const EMOTIONAL_ATMOSPHERES: EmotionalColor[] = ['warm', 'bittersweet', 'playful', 'reverent']
-const STYLES: LiteraryStyle[] = [
-  'mythic-fantasy',
-  'modern-literary',
-  'minimalist',
-  'poetic',
-  'light-humor',
-  'epic-chronicle',
+
+const EMOTIONAL_ATMOSPHERES: { value: EmotionalColor; desc: string }[] = [
+  { value: 'warm', desc: 'Tender, glowing, full of care' },
+  { value: 'bittersweet', desc: 'Joy and longing intertwined' },
+  { value: 'playful', desc: 'Light, joyful, a little cheeky' },
+  { value: 'reverent', desc: 'Quiet, sacred, full of weight' },
 ]
+
+const STYLES: { value: LiteraryStyle; label: string }[] = [
+  { value: 'mythic-fantasy', label: 'Magical & Mythic' },
+  { value: 'modern-literary', label: 'Warm & Literary' },
+  { value: 'minimalist', label: 'Simple & Direct' },
+  { value: 'poetic', label: 'Lyrical & Poetic' },
+  { value: 'light-humor', label: 'Funny & Light' },
+  { value: 'epic-chronicle', label: 'Grand & Epic' },
+  { value: 'conversational', label: 'Casual & Natural' },
+]
+
 const METAPHOR_LEVELS: MetaphorDensity[] = ['low', 'medium', 'rich']
 
 export default function Step3Narrative({ data, context, onChange, onContextChange, onNext, onBack }: Props) {
@@ -141,16 +150,18 @@ export default function Step3Narrative({ data, context, onChange, onContextChang
               Emotional mix <span className={styles.optional}>(pick one or more)</span>
             </label>
             <div className={styles.chipRow}>
-              {EMOTIONAL_ATMOSPHERES.map(color => (
+              {EMOTIONAL_ATMOSPHERES.map(({ value, desc }) => (
                 <button
-                  key={color}
+                  key={value}
                   type="button"
                   className={`${styles.chip} ${
-                    context.messageIntent.emotionalMix.includes(color) ? styles.chipActive : ''
+                    context.messageIntent.emotionalMix.includes(value) ? styles.chipActive : ''
                   }`}
-                  onClick={() => toggleEmotionalColor(color)}
+                  onClick={() => toggleEmotionalColor(value)}
+                  title={desc}
                 >
-                  {color.charAt(0).toUpperCase() + color.slice(1)}
+                  <span>{value.charAt(0).toUpperCase() + value.slice(1)}</span>
+                  <span className={styles.toneDesc}>{desc}</span>
                 </button>
               ))}
             </div>
@@ -158,7 +169,7 @@ export default function Step3Narrative({ data, context, onChange, onContextChang
         </div>
 
         <details className={styles.fieldGroup}>
-          <summary className={styles.sectionTitle}>Style flavor (optional)</summary>
+          <summary className={styles.sectionTitle}>Voice & style (optional — click to customise)</summary>
           <p className={styles.sectionHint}>
             These control the &quot;voice&quot; without changing what you told us about them.
           </p>
@@ -168,16 +179,16 @@ export default function Step3Narrative({ data, context, onChange, onContextChang
               Literary style <span className={styles.optional}>(optional)</span>
             </label>
             <div className={styles.chipRow}>
-              {STYLES.map(style => (
+              {STYLES.map(({ value, label }) => (
                 <button
-                  key={style}
+                  key={value}
                   type="button"
                   className={`${styles.chip} ${
-                    context.styleLayer.literaryStyle === style ? styles.chipActive : ''
+                    context.styleLayer.literaryStyle === value ? styles.chipActive : ''
                   }`}
-                  onClick={() => updateStyleLayer({ literaryStyle: style })}
+                  onClick={() => updateStyleLayer({ literaryStyle: value })}
                 >
-                  {style.replace('-', ' ')}
+                  {label}
                 </button>
               ))}
             </div>

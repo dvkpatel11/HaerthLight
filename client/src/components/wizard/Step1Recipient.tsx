@@ -1,27 +1,35 @@
 import { motion } from 'framer-motion'
-import type { RecipientData, OccasionData, NarrativeContext } from '../../types'
+import type { RecipientData, OccasionData, NarrativeContext, Language } from '../../types'
 import styles from './Step.module.css'
 
 interface Props {
   recipient: RecipientData
   occasion: OccasionData
   context: NarrativeContext
+  language: Language
   onRecipientChange: (d: RecipientData) => void
   onOccasionChange: (d: OccasionData) => void
   onContextChange: (ctx: NarrativeContext) => void
+  onLanguageChange: (l: Language) => void
   onNext: () => void
 }
+
+const LANGUAGES: Language[] = ['English', 'Hindi', 'Gujarati', 'Bengali', 'Swahili']
 
 const RELATIONSHIPS = [
   'Partner',
   'Spouse',
   'Parent',
   'Child',
+  'Grandparent',
+  'Grandchild',
   'Sibling',
   'Best Friend',
   'Friend',
   'Mentor',
+  'Teacher / Coach',
   'Colleague',
+  'Self',
   'Other',
 ]
 
@@ -31,22 +39,29 @@ const OCCASIONS = [
   'Wedding',
   'Graduation',
   'New Chapter',
-  'Recovery',
+  'Recovery / Get Well',
   'Achievement',
   'Farewell',
   'Welcome',
   'Holiday',
   'Just Because',
-  'Custom…',
+  'Retirement',
+  'Promotion',
+  'Baby Shower',
+  'Religious / Cultural Holiday',
+  'Sympathy & Loss',
+  'Something else…',
 ]
 
 export default function Step1Recipient({
   recipient,
   occasion,
   context,
+  language,
   onRecipientChange,
   onOccasionChange,
   onContextChange,
+  onLanguageChange,
   onNext,
 }: Props) {
   const hasName = recipient.name.trim().length > 0
@@ -94,6 +109,23 @@ export default function Step1Recipient({
       </div>
 
       <div className={styles.fields}>
+        <div className={styles.fieldGroup}>
+          <h3 className={styles.sectionTitle}>Chronicle language</h3>
+          <p className={styles.sectionHint}>Choose the language your chronicle will be written in.</p>
+          <div className={styles.chipRow}>
+            {LANGUAGES.map(lang => (
+              <button
+                key={lang}
+                type="button"
+                className={`${styles.chip} ${language === lang ? styles.chipActive : ''}`}
+                onClick={() => onLanguageChange(lang)}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.fieldGroup}>
           <h3 className={styles.sectionTitle}>Who is this for?</h3>
 
@@ -157,14 +189,14 @@ export default function Step1Recipient({
           <div className={styles.occasionGrid}>
             {OCCASIONS.map(occ => {
               const isCustom = !OCCASIONS.slice(0, -1).includes(occasion.label) && occasion.label !== ''
-              const active = occasion.label === occ || (occ === 'Custom…' && isCustom)
+              const active = occasion.label === occ || (occ === 'Something else…' && isCustom)
               return (
                 <button
                   key={occ}
                   type="button"
                   className={`${styles.chip} ${active ? styles.chipActive : ''}`}
                   onClick={() => {
-                    if (occ === 'Custom…') {
+                    if (occ === 'Something else…') {
                       onOccasionChange({ ...occasion, label: '' })
                     } else {
                       onOccasionChange({ ...occasion, label: occ })

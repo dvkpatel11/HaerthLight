@@ -68,7 +68,7 @@ export default function Step2Occasion({
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className={styles.header}>
-        <h2 className={styles.title}>Life & relationship</h2>
+        <h2 className={styles.title}>Tell us a little more about them</h2>
         <p className={styles.desc}>
           A few details about this chapter and what they mean to you.
         </p>
@@ -80,7 +80,7 @@ export default function Step2Occasion({
           <p className={styles.sectionHint}>Pick a few traits and, if you like, add your own words.</p>
 
           <div className={styles.chipRow}>
-            {['Kind', 'Resilient', 'Curious', 'Playful', 'Steady', 'Brave', 'Gentle', 'Funny'].map(trait => (
+            {['Kind', 'Resilient', 'Curious', 'Playful', 'Steady', 'Brave', 'Gentle', 'Funny', 'Caring', 'Creative', 'Thoughtful', 'Wise'].map(trait => (
               <button
                 key={trait}
                 type="button"
@@ -100,7 +100,7 @@ export default function Step2Occasion({
             </label>
             <input
               type="text"
-              placeholder="e.g. Somehow always steady and gentle, even when everything is loud."
+              placeholder="e.g. She has a way of making everyone feel at ease the moment she walks in."
               value={context.behaviorExample || ''}
               onChange={e =>
                 onContextChange({
@@ -117,7 +117,7 @@ export default function Step2Occasion({
           <p className={styles.sectionHint}>A sentence or two about this chapter is perfect.</p>
 
           <div className={styles.field}>
-            <label className={styles.label}>This chapter looks like…</label>
+            <label className={styles.label}>What&apos;s life looking like for them right now?</label>
             <textarea
               rows={2}
               placeholder="e.g. Learning how to be newly married while carrying a lot at work."
@@ -128,7 +128,7 @@ export default function Step2Occasion({
 
           <div className={styles.field}>
             <label className={styles.label}>
-              The emotional tone of this season <span className={styles.optional}>(optional)</span>
+              How would you describe this time in their life? <span className={styles.optional}>(optional)</span>
             </label>
             <input
               type="text"
@@ -140,7 +140,7 @@ export default function Step2Occasion({
         </div>
 
         <div className={styles.fieldGroup}>
-          <h3 className={styles.sectionTitle}>A shared thread between you</h3>
+          <h3 className={styles.sectionTitle}>A memory or moment you share</h3>
           <p className={styles.sectionHint}>One memory or small dynamic keeps the chronicle from feeling generic.</p>
 
           <div className={styles.field}>
@@ -156,7 +156,9 @@ export default function Step2Occasion({
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label}>One small behavior or dynamic</label>
+            <label className={styles.label}>
+              Something that&apos;s uniquely them <span className={styles.optional}>(optional)</span>
+            </label>
             <input
               type="text"
               placeholder="e.g. She always texts when she knows I have a big day coming."
@@ -167,7 +169,7 @@ export default function Step2Occasion({
 
           <div className={styles.field}>
             <label className={styles.label}>
-              Why they matter to you <span className={styles.optional}>(optional)</span>
+              What do they mean to you? <span className={styles.optional}>(optional)</span>
             </label>
             <textarea
               rows={2}

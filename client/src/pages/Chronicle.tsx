@@ -191,6 +191,7 @@ export default function Chronicle() {
             key="reveal"
             recipientName={chronicle.recipient.name}
             occasionLabel={chronicle.occasion.label}
+            tone={chronicle.narrative?.tone}
             particleColor={particleColor}
             onReveal={() => setFlowStage('reading')}
           />
@@ -229,6 +230,7 @@ export default function Chronicle() {
             key="farewell"
             senderName={chronicle.recipient.name}
             occasionLabel={chronicle.occasion.label}
+            tone={chronicle.narrative?.tone}
             onShare={() => navigate('/')}
             onReplay={() => setFlowStage('reveal')}
           />
