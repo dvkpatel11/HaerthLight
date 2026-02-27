@@ -39,6 +39,7 @@
 
 /* Reading Screen */
 .readingContainer {
+  position: relative;
   width: 100%;
   max-width: 680px;
   padding: 80px 24px 100px;
@@ -48,6 +49,19 @@
   align-items: center;
   overflow-y: auto;
   max-height: 100vh;
+}
+
+.progressBar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent, #c9a84c);
+  border-radius: 1px;
+  z-index: 20;
+  margin-bottom: -2px;
+  opacity: 0.85;
 }
 
 .readingHeader {

@@ -125,18 +125,6 @@ export default function Step2Occasion({
               onChange={e => updateLifeContext('transitionMoment', e.target.value)}
             />
           </div>
-
-          <div className={styles.field}>
-            <label className={styles.label}>
-              How would you describe this time in their life? <span className={styles.optional}>(optional)</span>
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Quietly brave, a little tender around the edges."
-              value={context.lifeContext.chapterTone || ''}
-              onChange={e => updateLifeContext('chapterTone', e.target.value)}
-            />
-          </div>
         </div>
 
         <div className={styles.fieldGroup}>

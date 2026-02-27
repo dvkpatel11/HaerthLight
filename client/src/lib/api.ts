@@ -62,6 +62,17 @@ export async function generateAudio(data: { prose: string; language: string }): 
   return audioUrl;
 }
 
+export async function generateMusic(payload: object): Promise<string | undefined> {
+  const res = await fetch(`${BASE}/generate/music`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error('Music generation failed');
+  const data = await res.json();
+  return data.musicUrl;
+}
+
 export async function saveChronicle(
   state: WizardState
 ): Promise<{ slug: string; creatorToken: string; shareUrl: string }> {

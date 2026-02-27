@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } fr
 import { fetchChronicle, logView } from '../lib/api'
 import type { Chronicle } from '../types'
 import FloatingParticles from '../components/ui/FloatingParticles'
+import AudioControls from '../components/ui/AudioControls'
 import { getThemeBackground, getThemeTextureLayers, getThemeLottieOverlay } from '../lib/themeAssets'
 import LottieOverlay from '../components/ui/LottieOverlay'
 import Reveal from '../components/chronicle/Reveal'
@@ -112,6 +113,9 @@ export default function Chronicle() {
 
       {chronicle.audioUrl && (
         <audio src={chronicle.audioUrl} autoPlay loop style={{ display: 'none' }} />
+      )}
+      {chronicle.musicUrl && (
+        <AudioControls src={chronicle.musicUrl} accentColor={accent} />
       )}
 
       <div className={styles.heroWrap} ref={heroRef}>

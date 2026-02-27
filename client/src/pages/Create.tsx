@@ -19,7 +19,7 @@ import Step2Occasion from '../components/wizard/Step2Occasion'
 import Step3Narrative from '../components/wizard/Step3Narrative'
 import Step4Theme from '../components/wizard/Step4Theme'
 import Step5Preview from '../components/wizard/Step5Preview'
-import { generateProse, generateImage, generateAnimation } from '../lib/api'
+import { generateProse, generateImage, generateAnimation, generateAudio, generateMusic } from '../lib/api'
 import styles from './Create.module.css'
 
 const DEFAULT_GOAL: MessageGoal = 'celebrate'
@@ -177,13 +177,14 @@ export default function Create() {
         language: state.language,
       }
 
-      const [prose, imageUrl, animationUrl] = await Promise.all([
+      const [prose, imageUrl, animationUrl, musicUrl] = await Promise.all([
         generateProse(payload),
         generateImage(payload).catch(() => undefined), // image is optional
         generateAnimation(payload).catch(() => undefined), // animation is optional
+        generateMusic(payload).catch(() => undefined), // music is optional
       ])
 
-      // Generate audio after prose is ready
+      // Generate audio narration after prose is ready
       const audioUrl = await generateAudio({ prose, language: payload.language }).catch(() => undefined)
 
       setState(s => ({
@@ -192,6 +193,7 @@ export default function Create() {
         imageUrl,
         animationUrl,
         audioUrl,
+        musicUrl,
       }))
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err))

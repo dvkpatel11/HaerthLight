@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import styles from './Flow.module.css'
 
 interface Props {
@@ -14,6 +15,9 @@ export default function ChronicleReading({
   occasionLabel,
   onComplete,
 }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ container: containerRef })
+  const progressScaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
   const paragraphs = prose.split('\n\n').filter(Boolean)
 
   const containerVariants = {
@@ -44,7 +48,11 @@ export default function ChronicleReading({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className={styles.readingContainer}>
+      <div className={styles.readingContainer} ref={containerRef}>
+        <motion.div
+          className={styles.progressBar}
+          style={{ scaleX: progressScaleX, transformOrigin: 'left' }}
+        />
         <motion.div
           className={styles.readingHeader}
           initial={{ opacity: 0, y: -20 }}

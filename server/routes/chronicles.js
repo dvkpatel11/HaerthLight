@@ -16,6 +16,7 @@ chroniclesRouter.post('/', async (req, res) => {
       prose,
       imageUrl,
       animationUrl,
+      musicUrl,
     } = req.body;
 
     if (!prose) return res.status(400).json({ error: 'prose is required' });
@@ -32,6 +33,7 @@ chroniclesRouter.post('/', async (req, res) => {
       prose,
       imageUrl: imageUrl || null,
       animationUrl: animationUrl || null,
+      musicUrl: musicUrl || null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

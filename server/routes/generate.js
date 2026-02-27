@@ -659,4 +659,69 @@ generateRouter.post("/audio", async (req, res) => {
   }
 });
 
+function buildMusicPrompt(narrative = {}, occasion = {}) {
+  const tone = narrative.tone || 'warm & heartfelt';
+  const occasionLabel = (occasion.label || '').toLowerCase();
+
+  const toneMap = {
+    'warm & heartfelt':     'soft acoustic piano, warm strings, gentle and intimate, no percussion',
+    'playful & light':      'light folk guitar, upbeat acoustic, cheerful and bright',
+    'reflective & poetic':  'ambient atmospheric piano, sparse and contemplative, minimal',
+    'celebratory & joyful': 'uplifting orchestral, bright brass, joyful and triumphant',
+    'tender & intimate':    'quiet solo piano, minimal, close and tender, soft cello',
+  };
+
+  let prompt = toneMap[tone] || toneMap['warm & heartfelt'];
+
+  if (occasionLabel.includes('sympathy') || occasionLabel.includes('loss')) {
+    prompt = 'sparse minimalist piano, quiet, respectful, no percussion, gentle and present';
+  } else if (occasionLabel.includes('graduation')) {
+    prompt += ', hopeful, triumphant, builds gently';
+  } else if (occasionLabel.includes('birthday')) {
+    prompt += ', warm celebration, gentle energy';
+  }
+
+  return prompt;
+}
+
+generateRouter.post('/music', async (req, res) => {
+  try {
+    const { narrative = {}, occasion = {}, language = 'English' } = req.body;
+    const apiKey = process.env.NANOBANANA_API_KEY;
+
+    // Local fallback first
+    const langCode = language.toLowerCase() === 'hindi' ? 'hi' :
+                     language.toLowerCase() === 'bengali' ? 'bn' : 'en';
+    const localAudio = await getRandomAsset(`audio/${langCode}`);
+    if (!apiKey && localAudio) return res.json({ musicUrl: localAudio });
+    if (!apiKey) return res.status(500).json({ error: 'NANOBANANA_API_KEY not configured' });
+
+    const prompt = buildMusicPrompt(narrative, occasion);
+
+    // TODO: Confirm exact endpoint + body shape from NanoBanana dashboard
+    const response = await fetch('https://api.nanobananaapi.ai/v1/music', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt,
+        mode: 'custom',
+        duration: 60,
+      }),
+    });
+
+    if (!response.ok) throw new Error(`NanoBanana music error: ${response.status}`);
+    const data = await response.json();
+
+    // Adjust field name to match actual NanoBanana response
+    const musicUrl = data.url || data.audioUrl || data.output;
+    res.json({ musicUrl });
+  } catch (err) {
+    console.error('Music generation error:', err);
+    res.status(500).json({ error: 'Music generation failed', detail: err.message });
+  }
+});
+
 export { THEMES };
